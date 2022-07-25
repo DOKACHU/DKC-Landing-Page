@@ -4,7 +4,6 @@ const Wrapper = styled.div`
   /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
-  padding: 10px;
 `;
 const Span = styled.span`
   font-size: 16px;

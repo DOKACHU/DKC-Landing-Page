@@ -8,6 +8,11 @@ const Block = styled.div`
   height: 100%;
 `;
 
+const SectionWrapper = styled.div`
+  margin-bottom: 48px;
+  /* border: 1px solid red; */
+`;
+
 interface FormTemplate {
   children: React.ReactNode;
   toggle?: boolean;
@@ -16,7 +21,9 @@ interface FormTemplate {
 export default function FormTemplate({ toggle, children }: FormTemplate) {
   return (
     <Block>
-      <TextSection toggle={toggle} />
+      <SectionWrapper>
+        <TextSection toggle={toggle} />
+      </SectionWrapper>
       {children}
 
       {/* TODO: Footer 고정  */}

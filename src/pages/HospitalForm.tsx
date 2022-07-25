@@ -22,9 +22,9 @@ const HospitalForm = () => {
     <>
       {/* TODO: form template 로 옮긴다. */}
       <form
-        style={{
-          border: "1px solid blue",
-        }}
+        // style={{
+        //   border: "1px solid blue",
+        // }}
         onSubmit={handleSubmit(onSubmit)}
       >
         <Grid container spacing={2}>
