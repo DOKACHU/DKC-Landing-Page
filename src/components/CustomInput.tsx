@@ -1,10 +1,23 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  border: 1px solid green;
+  /* border: 1px solid green; */
   display: flex;
   flex-direction: column;
   padding: 10px;
+`;
+const Span = styled.span`
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+`;
+
+const Input = styled.input`
+  padding: 12px 16px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
 `;
 
 interface CustomInputProps {
@@ -20,8 +33,8 @@ export default function CustomInput({
 }: CustomInputProps) {
   return (
     <Wrapper>
-      <span>{name}*</span>
-      <input value={value} name={name} {...props} />
+      <Span>{name}*</Span>
+      <Input value={value} name={name} {...props} />
     </Wrapper>
   );
 }
