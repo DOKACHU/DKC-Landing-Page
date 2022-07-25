@@ -5,7 +5,7 @@ import { TextSection } from "../components";
 
 const Block = styled.div`
   padding: 80px;
-  height: 100vh;
+  height: 100%;
 `;
 
 interface FormTemplate {
