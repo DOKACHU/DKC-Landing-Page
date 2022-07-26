@@ -1,8 +1,8 @@
-import React from "react";
-import Select from "react-select";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { Grid } from "@mui/material";
-import { CustomInput, CustomTextArea } from "../components";
+import React from 'react';
+import Select from 'react-select';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { Grid } from '@mui/material';
+import { CustomInput, CustomTextArea } from '../components';
 
 interface IFormInput {
   firstName: string;
@@ -11,100 +11,85 @@ interface IFormInput {
 }
 
 const PasonalForm = () => {
-  const { control, handleSubmit } = useForm<IFormInput>();
-
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
-    alert(data);
-  };
+  const { control } = useForm<IFormInput>();
 
   return (
     <>
-      {/* TODO: form template 로 옮긴다. */}
-      <form
-        // style={{
-        //   border: "1px solid blue",
-        // }}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Grid container spacing={2}>
-          {/* 4 */}
-          <Grid item xs={12}>
-            <input type="file" />
-          </Grid>
-
-          <Grid item xs={6}>
-            <Controller
-              name="firstName"
-              control={control}
-              defaultValue=""
-              render={({ field }) => <CustomInput {...field} />}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Controller
-              name="iceCreamType"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  options={[
-                    { value: "chocolate", label: "Chocolate" },
-                    { value: "strawberry", label: "Strawberry" },
-                    { value: "vanilla", label: "Vanilla" },
-                  ]}
-                />
-              )}
-            />
-          </Grid>
-
-          {/* 2 */}
-          <Grid item xs={6}>
-            <Controller
-              name="iceCreamType"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  options={[
-                    { value: "chocolate", label: "Chocolate" },
-                    { value: "strawberry", label: "Strawberry" },
-                    { value: "vanilla", label: "Vanilla" },
-                  ]}
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Controller
-              name="iceCreamType"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  options={[
-                    { value: "chocolate", label: "Chocolate" },
-                    { value: "strawberry", label: "Strawberry" },
-                    { value: "vanilla", label: "Vanilla" },
-                  ]}
-                />
-              )}
-            />
-          </Grid>
-
-          {/* 5 textarea */}
-          <Grid item xs={12}>
-            <Controller
-              name="firstName"
-              control={control}
-              defaultValue=""
-              render={({ field }) => <CustomTextArea {...field} />}
-            />
-          </Grid>
+      <Grid container spacing={2}>
+        {/* 4 */}
+        <Grid item xs={12}>
+          <input type="file" />
         </Grid>
 
-        <input type="submit" />
-      </form>
+        <Grid item xs={6}>
+          <Controller
+            name="firstName"
+            control={control}
+            defaultValue=""
+            render={({ field }) => <CustomInput {...field} />}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Controller
+            name="iceCreamType"
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                options={[
+                  { value: 'chocolate', label: 'Chocolate' },
+                  { value: 'strawberry', label: 'Strawberry' },
+                  { value: 'vanilla', label: 'Vanilla' },
+                ]}
+              />
+            )}
+          />
+        </Grid>
+
+        {/* 2 */}
+        <Grid item xs={6}>
+          <Controller
+            name="iceCreamType"
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                options={[
+                  { value: 'chocolate', label: 'Chocolate' },
+                  { value: 'strawberry', label: 'Strawberry' },
+                  { value: 'vanilla', label: 'Vanilla' },
+                ]}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Controller
+            name="iceCreamType"
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                options={[
+                  { value: 'chocolate', label: 'Chocolate' },
+                  { value: 'strawberry', label: 'Strawberry' },
+                  { value: 'vanilla', label: 'Vanilla' },
+                ]}
+              />
+            )}
+          />
+        </Grid>
+
+        {/* 5 textarea */}
+        <Grid item xs={12}>
+          <Controller
+            name="firstName"
+            control={control}
+            defaultValue=""
+            render={({ field }) => <CustomTextArea {...field} />}
+          />
+        </Grid>
+      </Grid>
     </>
   );
 };
