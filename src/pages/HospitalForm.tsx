@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import Select from 'react-select';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { Grid, Checkbox } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 import styled from 'styled-components';
@@ -31,11 +32,12 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
           name="hospital"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} />}
+          render={({ field }) => <CustomInput {...field} label="병원 이름" />}
         />
       </Grid>
       {/* 2 지역 */}
       <Grid item xs={6}>
+        <label>담당 업무*</label>
         <Controller
           name="location"
           control={control}
@@ -58,40 +60,43 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
           name="address"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} />}
+          render={({ field }) => <CustomInput {...field} label="대표주소" />}
         />
       </Grid>
 
       {/* 4 사업자 등록번호 */}
-      <Grid item xs={6}>
-        <Controller
-          name="bizzNumber"
-          control={control}
-          defaultValue={0}
-          render={({ field }) => <CustomInput {...field} />}
-        />
+      <Grid item xs={12}>
+        <Grid item xs={6}>
+          <Controller
+            name="bizzNumber"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => <CustomInput {...field} label="사업자 등록번호" />}
+          />
+        </Grid>
       </Grid>
 
+      {/* <Grid direction="row" item xs={12}> */}
       {/* 진료항목 */}
       <Grid item xs={6}>
         <Controller
           name="subject"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} />}
+          render={({ field }) => <CustomInput {...field} label="진료항목" />}
         />
       </Grid>
 
       {/* 치료사 수 */}
-
       <Grid item xs={6}>
         <Controller
           name="proCount"
           control={control}
           defaultValue={0}
-          render={({ field }) => <CustomInput {...field} />}
+          render={({ field }) => <CustomInput {...field} label="치료사 수" />}
         />
       </Grid>
+      {/* </Grid> */}
 
       {/* 5 textarea */}
       <Grid item xs={12}>
@@ -99,7 +104,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
           name="info"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomTextArea {...field} />}
+          render={({ field }) => <CustomTextArea {...field} label="병원 소개(3000자 제한)" />}
         />
       </Grid>
 
@@ -109,7 +114,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
           name="phoneNumber"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} />}
+          render={({ field }) => <CustomInput {...field} label="담당자 연락처" />}
         />
       </Grid>
       <Grid item xs={6}>
@@ -117,13 +122,13 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
           name="email"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} />}
+          render={({ field }) => <CustomInput {...field} label="정보 수신 이메일" />}
         />
       </Grid>
 
       {/* auto complete */}
       <Grid item xs={12}>
-        <div>auto complete</div>
+        <div>태그 입력</div>
       </Grid>
 
       <Grid item xs={12}>
@@ -131,7 +136,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
           name="policy"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomTextArea {...field} />}
+          render={({ field }) => <CustomTextArea {...field} label="이용약관" />}
         />
       </Grid>
 

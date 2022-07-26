@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HospitalForm, PasonalForm } from './pages';
+import { HospitalForm, PersonalForm } from './pages';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import { Grid } from '@mui/material';
@@ -28,12 +28,18 @@ interface PersonalFormInput {
 }
 
 const Block = styled.div`
-  position: relative;
   margin: 80px;
 `;
 
+const Test = styled.div`
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  background-color: lightblue;
+`;
+
 const Form = styled.form`
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 export default function App() {
@@ -49,18 +55,19 @@ export default function App() {
     alert(JSON.stringify(data));
   };
 
-  const handleToggle = (e: any) => {
-    e.preventDefault();
+  const handleToggle = () => {
     setToggle(!toggle);
   };
 
   return (
     <Block>
-      <button onClick={handleToggle}> {!toggle ? '개인' : '병원'}변경 </button>
+      <Test>
+        <button onClick={handleToggle}> {!toggle ? '개인' : '병원'}변경 </button>
+      </Test>
       <TextSection toggle={toggle} />
       <Form onSubmit={!toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
         <Grid container spacing={2}>
-          {!toggle ? <HospitalForm control={control} /> : <PasonalForm control={personalCtrl} />}
+          {!toggle ? <HospitalForm control={control} /> : <PersonalForm control={personalCtrl} />}
         </Grid>
       </Form>
     </Block>

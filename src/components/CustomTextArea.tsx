@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -21,16 +22,16 @@ const TextArea = styled.textarea`
 `;
 
 interface CustomTextAreaProps {
-  name: string;
+  label?: string;
   value: string;
   onChange: (...event: any[]) => void;
 }
 
-export default function CustomTextArea({ value, name, ...props }: CustomTextAreaProps) {
+export default function CustomTextArea({ value, label, ...props }: CustomTextAreaProps) {
   return (
     <Wrapper>
-      <Span>{name}*</Span>
-      <TextArea value={value} name={name} {...props} />
+      <Span>{label}*</Span>
+      <TextArea value={value} {...props} />
     </Wrapper>
   );
 }

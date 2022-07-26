@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import Select from 'react-select';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { Grid } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 import styled from 'styled-components';
@@ -21,7 +22,7 @@ const Footer = styled(Grid)`
   align-items: center;
 `;
 
-const PasonalForm = ({ control }: PersonalFormProps) => {
+const PersonalForm = ({ control }: PersonalFormProps) => {
   return (
     <>
       {/* 4 */}
@@ -34,21 +35,21 @@ const PasonalForm = ({ control }: PersonalFormProps) => {
           name="name"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} />}
+          render={({ field }) => <CustomInput {...field} label="이름" />}
         />
       </Grid>
       <Grid item xs={6}>
+        <label>성별*</label>
         <Controller
           name="sex"
           control={control}
           render={({ field }) => (
             <Select
-              defaultValue={{ value: 'chocolate', label: 'Chocolate' }}
+              defaultValue={{ value: 'male', label: '남자' }}
               {...field}
               options={[
-                { value: 'chocolate', label: 'Chocolate' },
-                { value: 'strawberry', label: 'Strawberry' },
-                { value: 'vanilla', label: 'Vanilla' },
+                { value: 'male', label: '남자' },
+                { value: 'female', label: '여자' },
               ]}
             />
           )}
@@ -57,6 +58,7 @@ const PasonalForm = ({ control }: PersonalFormProps) => {
 
       {/* 2 */}
       <Grid item xs={6}>
+        <label>지역*</label>
         <Controller
           name="location"
           control={control}
@@ -73,16 +75,18 @@ const PasonalForm = ({ control }: PersonalFormProps) => {
         />
       </Grid>
       <Grid item xs={6}>
+        <label>담당 업무*</label>
         <Controller
           name="major"
           control={control}
           render={({ field }) => (
             <Select
               {...field}
+              defaultValue={{ value: '1', label: '도수치료' }}
               options={[
-                { value: 'chocolate', label: 'Chocolate' },
-                { value: 'strawberry', label: 'Strawberry' },
-                { value: 'vanilla', label: 'Vanilla' },
+                { value: '1', label: '도수치료' },
+                { value: '2', label: '카이로프택틱' },
+                { value: '3', label: '추나요법' },
               ]}
             />
           )}
@@ -95,7 +99,7 @@ const PasonalForm = ({ control }: PersonalFormProps) => {
           name="info"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomTextArea {...field} />}
+          render={({ field }) => <CustomTextArea {...field} label="간단 소개글 (3000자 이내)" />}
         />
       </Grid>
 
@@ -107,4 +111,4 @@ const PasonalForm = ({ control }: PersonalFormProps) => {
   );
 };
 
-export default PasonalForm;
+export default PersonalForm;

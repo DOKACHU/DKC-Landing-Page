@@ -21,16 +21,16 @@ const Input = styled.input`
 `;
 
 interface CustomInputProps {
-  name: string;
+  label?: string;
   value: string | number;
   onChange: (...event: any[]) => void;
 }
 
-export default function CustomInput({ value, name, ...props }: CustomInputProps) {
+export default function CustomInput({ value, label, ...props }: CustomInputProps) {
   return (
     <Wrapper>
-      <Span>{name}*</Span>
-      <Input value={value} name={name} {...props} />
+      <Span>{label}*</Span>
+      <Input value={value} {...props} />
     </Wrapper>
   );
 }
