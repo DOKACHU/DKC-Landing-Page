@@ -1,4 +1,5 @@
-import styled from "styled-components";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   /* border: 1px solid green; */
@@ -25,11 +26,7 @@ interface CustomInputProps {
   onChange: (...event: any[]) => void;
 }
 
-export default function CustomInput({
-  value,
-  name,
-  ...props
-}: CustomInputProps) {
+export default function CustomInput({ value, name, ...props }: CustomInputProps) {
   return (
     <Wrapper>
       <Span>{name}*</Span>
