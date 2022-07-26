@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { TextSection } from '../components';
 import { Grid } from '@mui/material';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 const SectionWrapper = styled.div`
   margin-bottom: 48px;

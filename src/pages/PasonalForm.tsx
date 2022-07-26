@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { Grid } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 

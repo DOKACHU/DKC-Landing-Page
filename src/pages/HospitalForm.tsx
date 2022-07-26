@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { Grid } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 
@@ -11,13 +11,7 @@ interface IFormInput {
 }
 
 const HospitalForm = () => {
-  const { control, handleSubmit } = useForm<IFormInput>();
-
-  const onSubmit: SubmitHandler<IFormInput> = data => {
-    console.log(data);
-    alert(data);
-  };
-
+  const { control } = useForm<IFormInput>();
   return (
     <>
       <Grid container spacing={2}>
