@@ -22,7 +22,7 @@ const Input = styled.input`
 
 interface CustomInputProps {
   name: string;
-  value: string;
+  value: string | number;
   onChange: (...event: any[]) => void;
 }
 

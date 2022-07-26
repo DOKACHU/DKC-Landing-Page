@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,11 +26,7 @@ interface CustomTextAreaProps {
   onChange: (...event: any[]) => void;
 }
 
-export default function CustomTextArea({
-  value,
-  name,
-  ...props
-}: CustomTextAreaProps) {
+export default function CustomTextArea({ value, name, ...props }: CustomTextAreaProps) {
   return (
     <Wrapper>
       <Span>{name}*</Span>
