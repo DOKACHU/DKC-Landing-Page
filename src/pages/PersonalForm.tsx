@@ -66,6 +66,7 @@ const PersonalForm = ({ control }: PersonalFormProps) => {
           render={({ field }) => {
             return (
               <input
+                {...field}
                 accept="image/*"
                 id="profile-image-input" // label htmlFor
                 type="file" // type="file"
