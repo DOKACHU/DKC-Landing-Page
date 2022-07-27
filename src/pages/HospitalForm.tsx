@@ -29,7 +29,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
       {/* 1 병원이름 */}
       <Grid item xs={12}>
         <Controller
-          name="hospital"
+          name="centerName"
           control={control}
           defaultValue=""
           render={({ field }) => <CustomInput {...field} label="병원 이름" />}
@@ -37,17 +37,20 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
       </Grid>
       {/* 2 지역 */}
       <Grid item xs={6}>
-        <label>담당 업무*</label>
+        <label>지역*</label>
         <Controller
           name="location"
           control={control}
           render={({ field }) => (
             <Select
               {...field}
+              defaultValue={{ value: '00', label: '서울' }}
               options={[
-                { value: 'chocolate', label: 'Chocolate' },
-                { value: 'strawberry', label: 'Strawberry' },
-                { value: 'vanilla', label: 'Vanilla' },
+                { value: '00', label: '서울' },
+                { value: '01', label: '인천' },
+                { value: '02', label: '대구' },
+                { value: '03', label: '부산' },
+                { value: '04', label: '광주' },
               ]}
             />
           )}
@@ -101,7 +104,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
       {/* 5 textarea */}
       <Grid item xs={12}>
         <Controller
-          name="info"
+          name="desc"
           control={control}
           defaultValue=""
           render={({ field }) => <CustomTextArea {...field} label="병원 소개(3000자 제한)" />}

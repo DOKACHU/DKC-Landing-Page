@@ -5,14 +5,16 @@ import styled from 'styled-components';
 import { Grid } from '@mui/material';
 import { TextSection } from './components';
 
+import { useRegisterCenter } from './hooks';
+
 interface IFormInput {
-  hospital: string;
+  centerName: string;
   location: { label: string; value: string };
   address: string;
   bizzNumber: number;
   subject: string;
   proCount: number;
-  info: string;
+  desc: string;
   phoneNumber: string;
   email: string;
   policy: string;
@@ -46,9 +48,22 @@ export default function App() {
   const [toggle, setToggle] = useState(false);
   const { handleSubmit, control } = useForm<IFormInput>();
   const { handleSubmit: personalSubmit, control: personalCtrl } = useForm<PersonalFormInput>();
+  const { createCenter, error } = useRegisterCenter();
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
-    alert(JSON.stringify(data));
+    createCenter({
+      variables: {
+        centerName: data.centerName,
+        centerLocation: '없음',
+        centerAddress: data.address,
+        centerBizzNumber: data.bizzNumber,
+        centerSubject: data.subject,
+        centerProCount: Number(data.proCount),
+        centerDescription: data.desc,
+        centerPhone: data.phoneNumber,
+        centerEmail: data.email,
+      },
+    });
   };
 
   const onPersonalSubmit: SubmitHandler<PersonalFormInput> = data => {
