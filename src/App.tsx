@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Grid } from '@mui/material';
 import { TextSection } from './components';
 
-import { useRegisterCenter } from './hooks';
+import { useRegisterCenter, useRegisterProfile } from './hooks';
 
 interface IFormInput {
   centerName: string;
@@ -49,6 +49,7 @@ export default function App() {
   const { handleSubmit, control } = useForm<IFormInput>();
   const { handleSubmit: personalSubmit, control: personalCtrl } = useForm<PersonalFormInput>();
   const { createCenter } = useRegisterCenter();
+  const { createProfile, error: profileError } = useRegisterProfile();
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     createCenter({
@@ -67,7 +68,16 @@ export default function App() {
   };
 
   const onPersonalSubmit: SubmitHandler<PersonalFormInput> = data => {
-    alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
+    createProfile({
+      variables: {
+        proName: data.name,
+        proInfo: data.info,
+        proSex: '없음',
+        proLocation: '없음',
+        proMajor: data.major || '없음',
+      },
+    });
   };
 
   const handleToggle = () => {

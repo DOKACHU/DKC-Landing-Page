@@ -34,7 +34,7 @@ export const RegisterCenter = gql`
 const onCompleted = (data: any) => {
   console.log('data', data);
   if (data) {
-    alert('생성 완료');
+    alert('병원 등록 완료');
   }
 };
 
