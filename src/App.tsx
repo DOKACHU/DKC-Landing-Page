@@ -48,7 +48,7 @@ export default function App() {
   const [toggle, setToggle] = useState(false);
   const { handleSubmit, control } = useForm<IFormInput>();
   const { handleSubmit: personalSubmit, control: personalCtrl } = useForm<PersonalFormInput>();
-  const { createCenter, error } = useRegisterCenter();
+  const { createCenter } = useRegisterCenter();
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     createCenter({
