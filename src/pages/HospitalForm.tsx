@@ -5,7 +5,7 @@ import { Controller } from 'react-hook-form';
 import { Grid, Checkbox } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 import styled from 'styled-components';
-
+import { Button } from '../components';
 interface HospitalFormProps {
   control: any;
 }
@@ -156,7 +156,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
           />
           <span>이용약관 및 도카추 회원 가입에 동의합니다.</span>
         </div>
-        <button type="submit">제출하기</button>
+        <Button type="submit">제출하기</Button>
       </Footer>
     </>
   );

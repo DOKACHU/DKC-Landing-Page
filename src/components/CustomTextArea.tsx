@@ -19,6 +19,14 @@ const TextArea = styled.textarea`
   font-size: 16px;
   font-weight: 500;
   resize: none;
+
+  &:hover {
+    border: 1px solid #e4e4e4;
+  }
+
+  &:focus {
+    background-color: #f4f4f4;
+  }
 `;
 
 interface CustomTextAreaProps {

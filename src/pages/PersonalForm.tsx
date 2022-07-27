@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import { Button } from '../components';
 import Select from 'react-select';
 import { Controller } from 'react-hook-form';
 import { Grid } from '@mui/material';
@@ -18,8 +18,12 @@ const Footer = styled(Grid)`
   background-color: #fff;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+
+  button + button {
+    margin-left: 10px;
+  }
 `;
 
 const PersonalForm = ({ control }: PersonalFormProps) => {
@@ -104,8 +108,10 @@ const PersonalForm = ({ control }: PersonalFormProps) => {
       </Grid>
 
       <Footer xs={12}>
-        <button type="button">임시저장</button>
-        <button type="submit">작성완료</button>
+        <Button type="button" btnType="save">
+          임시저장
+        </Button>
+        <Button type="submit">작성완료</Button>
       </Footer>
     </>
   );

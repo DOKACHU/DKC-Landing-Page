@@ -7,7 +7,7 @@ export default function TextSection({ toggle }: any) {
   return (
     <div>
       <Typography variant="h4" component="div" fontWeight={600}>
-        {toggle ? '병원 / 치료사 정보를 등록해주세요.' : '프로필 정보를 등록해주세요.'}
+        {!toggle ? '병원 / 치료사 정보를 등록해주세요.' : '프로필 정보를 등록해주세요.'}
       </Typography>
 
       <Typography variant="subtitle1" gutterBottom component="div" fontWeight={600}>
