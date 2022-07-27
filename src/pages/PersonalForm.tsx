@@ -2,9 +2,11 @@
 import { Button } from '../components';
 import Select from 'react-select';
 import { Controller } from 'react-hook-form';
-import { Grid } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
+import { AddAPhoto } from '@mui/icons-material';
 import { CustomInput, CustomTextArea } from '../components';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 interface PersonalFormProps {
   control: any;
@@ -26,12 +28,62 @@ const Footer = styled(Grid)`
   }
 `;
 
+interface TestProps {
+  imagePreviewUrl?: any;
+  imageBlob?: any;
+}
+
 const PersonalForm = ({ control }: PersonalFormProps) => {
+  const [loadedProfileImage, setLoadedProfileImage] = useState<TestProps>({
+    imagePreviewUrl: '',
+    imageBlob: null,
+  });
+
+  const reader = new FileReader(); // FileReader API로 이미지 인식
+  const handleProfileImageChange = (e: any) => {
+    e.preventDefault();
+
+    const file = e.target.files[0]; // file object는 e.target.files[0]에 있다.
+
+    if (file) {
+      reader.readAsDataURL(file); // 1. reader에게 file을 먼저 읽히고
+      // 사진 올리고 나서 처리하는 event
+      reader.onloadend = () => {
+        setLoadedProfileImage({ imagePreviewUrl: reader.result });
+        // dispatch(triggerImageCropModal()); // 사진 업로드 하면 crop창 띄움
+        e.target.value = ''; // 💖 같은 파일을 올리면 인지못해서 여기서 초기화
+      }; // 2. 비동기적으로 load가 끝나면 state에 저장
+    }
+  };
+
   return (
     <>
       {/* 4 */}
       <Grid item xs={12}>
-        <input type="file" />
+        <Controller
+          name="profileImage"
+          control={control}
+          render={({ field }) => {
+            return (
+              <input
+                accept="image/*"
+                id="profile-image-input" // label htmlFor
+                type="file" // type="file"
+                hidden // input을 숨기고 다른 스타일링위해
+                onChange={e => {
+                  handleProfileImageChange(e);
+                }}
+              />
+            );
+          }}
+        />
+        <label htmlFor="profile-image-input" className="photo-icon">
+          <IconButton color="primary" component="span">
+            <AddAPhoto />
+          </IconButton>
+        </label>
+
+        <img alt="" src={loadedProfileImage.imagePreviewUrl || ''} />
       </Grid>
 
       <Grid item xs={6}>
