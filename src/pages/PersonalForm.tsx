@@ -2,11 +2,11 @@
 import { Button } from '../components';
 import Select from 'react-select';
 import { Controller } from 'react-hook-form';
-import { Grid, IconButton } from '@mui/material';
-import { AddAPhoto } from '@mui/icons-material';
+import { Grid } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 import styled from 'styled-components';
 import { useState } from 'react';
+import defaultImg from './default.png';
 
 interface PersonalFormProps {
   control: any;
@@ -28,32 +28,52 @@ const Footer = styled(Grid)`
   }
 `;
 
-interface TestProps {
+const CustomImgWrapper = styled.div`
+  border: 1px solid #f4f4f4;
+  border-radius: 16px;
+  width: 240px;
+  height: 240px;
+
+  &:hover {
+    filter: brightness(90%);
+  }
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+`;
+
+interface ImageProps {
   imagePreviewUrl?: any;
   imageBlob?: any;
 }
 
 const PersonalForm = ({ control }: PersonalFormProps) => {
-  const [loadedProfileImage, setLoadedProfileImage] = useState<TestProps>({
+  const imageInit = {
     imagePreviewUrl: '',
     imageBlob: null,
-  });
+  };
+  const [loadedProfileImage, setLoadedProfileImage] = useState<ImageProps>(imageInit);
 
-  const reader = new FileReader(); // FileReader API로 이미지 인식
+  const reader = new FileReader();
   const handleProfileImageChange = (e: any) => {
     e.preventDefault();
 
-    const file = e.target.files[0]; // file object는 e.target.files[0]에 있다.
+    const file = e.target.files[0];
 
     if (file) {
-      reader.readAsDataURL(file); // 1. reader에게 file을 먼저 읽히고
-      // 사진 올리고 나서 처리하는 event
+      reader.readAsDataURL(file);
       reader.onloadend = () => {
         setLoadedProfileImage({ imagePreviewUrl: reader.result });
-        // dispatch(triggerImageCropModal()); // 사진 업로드 하면 crop창 띄움
-        e.target.value = ''; // 💖 같은 파일을 올리면 인지못해서 여기서 초기화
-      }; // 2. 비동기적으로 load가 끝나면 state에 저장
+
+        e.target.value = '';
+      };
     }
+  };
+
+  const handleRemove = () => {
+    setLoadedProfileImage(imageInit);
   };
 
   return (
@@ -78,13 +98,19 @@ const PersonalForm = ({ control }: PersonalFormProps) => {
             );
           }}
         />
-        <label htmlFor="profile-image-input" className="photo-icon">
-          <IconButton color="primary" component="span">
-            <AddAPhoto />
-          </IconButton>
-        </label>
 
-        <img alt="" src={loadedProfileImage.imagePreviewUrl || ''} />
+        <CustomImgWrapper>
+          <label htmlFor="profile-image-input">
+            {loadedProfileImage.imagePreviewUrl ? (
+              <Img alt="" src={loadedProfileImage.imagePreviewUrl} />
+            ) : (
+              <Img alt="default" src={defaultImg} />
+            )}
+          </label>
+        </CustomImgWrapper>
+        <button type="button" onClick={handleRemove}>
+          이미지 삭제
+        </button>
       </Grid>
 
       <Grid item xs={6}>
