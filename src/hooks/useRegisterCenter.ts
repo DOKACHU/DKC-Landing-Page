@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { gql, useMutation } from '@apollo/client';
-
 export const RegisterCenter = gql`
   mutation RegisterCenter(
     $centerName: String!

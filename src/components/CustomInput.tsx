@@ -29,16 +29,18 @@ const Input = styled.input`
 `;
 
 interface CustomInputProps {
+  ref?: any;
   label?: string;
   value: string | number;
   onChange: (...event: any[]) => void;
+  onClick?: () => void;
 }
 
-export default function CustomInput({ value, label, ...props }: CustomInputProps) {
+export default function CustomInput({ value, ref, onClick, label, ...props }: CustomInputProps) {
   return (
     <Wrapper>
       <Span>{label}*</Span>
-      <Input value={value} {...props} />
+      <Input ref={ref} value={value} onClick={onClick} {...props} />
     </Wrapper>
   );
 }

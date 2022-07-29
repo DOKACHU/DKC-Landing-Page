@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const usePostCode = () => {
   const [openPostcode, setOpenPostcode] = useState<boolean>(false);
+  const inputRef = useRef<any>(null);
+
   const handle = {
     // 버튼 클릭 이벤트
     clickButton: () => {
+      //   inputRef.current.click();
       setOpenPostcode(current => !current);
     },
+
+    // test: () => {},
 
     // 주소 선택 이벤트
     selectAddress: (data: any) => {
@@ -19,6 +24,7 @@ const usePostCode = () => {
     },
   };
   return {
+    inputRef,
     handle,
     openPostcode,
   };

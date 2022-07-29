@@ -27,7 +27,13 @@ const Footer = styled(Grid)`
 `;
 
 const HospitalForm = ({ control }: HospitalFormProps) => {
-  const { openPostcode, handle } = usePostCode();
+  const { openPostcode, handle, inputRef } = usePostCode();
+  // const inputRef = useRef<any>(null);
+
+  // const handleClick = () => {
+  //   inputRef?.current.click();
+  // };
+
   return (
     <>
       {/* 1 병원이름 */}
@@ -68,10 +74,17 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
           name="address"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} label="대표주소" />}
+          render={({ field }) => (
+            <CustomInput
+              {...field}
+              label="대표주소"
+              ref={inputRef}
+              onClick={() => {
+                handle.clickButton();
+              }}
+            />
+          )}
         />
-
-        <button onClick={handle.clickButton}>toggle</button>
 
         {openPostcode && (
           <DaumPostcode
