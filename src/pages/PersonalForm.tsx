@@ -5,11 +5,13 @@ import { Controller } from 'react-hook-form';
 import { Grid } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 import styled from 'styled-components';
-import { useState } from 'react';
 import defaultImg from './default.png';
 
 interface PersonalFormProps {
   control: any;
+  loadedProfileImage: any;
+  handleProfileImageChange: (e: any) => void;
+  handleRemove: () => void;
 }
 const Footer = styled(Grid)`
   border: 1px solid #e5e5e5;
@@ -44,44 +46,18 @@ const Img = styled.img`
   height: 100%;
 `;
 
-interface ImageProps {
-  imagePreviewUrl?: any;
-  imageBlob?: any;
-}
-
-const PersonalForm = ({ control }: PersonalFormProps) => {
-  const imageInit = {
-    imagePreviewUrl: '',
-    imageBlob: null,
-  };
-  const [loadedProfileImage, setLoadedProfileImage] = useState<ImageProps>(imageInit);
-
-  const reader = new FileReader();
-  const handleProfileImageChange = (e: any) => {
-    e.preventDefault();
-
-    const file = e.target.files[0];
-
-    if (file) {
-      reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        setLoadedProfileImage({ imagePreviewUrl: reader.result });
-
-        e.target.value = '';
-      };
-    }
-  };
-
-  const handleRemove = () => {
-    setLoadedProfileImage(imageInit);
-  };
-
+const PersonalForm = ({
+  control,
+  loadedProfileImage,
+  handleProfileImageChange,
+  handleRemove,
+}: PersonalFormProps) => {
   return (
     <>
       {/* 4 */}
       <Grid item xs={12}>
         <Controller
-          name="profileImage"
+          name="profileImg"
           control={control}
           render={({ field }) => {
             return (
@@ -126,6 +102,7 @@ const PersonalForm = ({ control }: PersonalFormProps) => {
         <Controller
           name="sex"
           control={control}
+          defaultValue={{ value: 'male', label: '남자' }}
           render={({ field }) => (
             <Select
               defaultValue={{ value: 'male', label: '남자' }}
@@ -145,13 +122,14 @@ const PersonalForm = ({ control }: PersonalFormProps) => {
         <Controller
           name="location"
           control={control}
+          defaultValue={{ value: '02', label: '서울' }}
           render={({ field }) => (
             <Select
               {...field}
+              defaultValue={{ value: '02', label: '서울' }}
               options={[
-                { value: 'chocolate', label: 'Chocolate' },
-                { value: 'strawberry', label: 'Strawberry' },
-                { value: 'vanilla', label: 'Vanilla' },
+                { value: '02', label: '서울' },
+                { value: '032', label: '인천' },
               ]}
             />
           )}
@@ -162,6 +140,7 @@ const PersonalForm = ({ control }: PersonalFormProps) => {
         <Controller
           name="major"
           control={control}
+          defaultValue={{ value: '1', label: '도수치료' }}
           render={({ field }) => (
             <Select
               {...field}

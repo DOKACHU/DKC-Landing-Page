@@ -1,2 +1,2 @@
-export { default as HospitalForm } from './HospitalForm';
+export { default as CenterForm } from './CenterForm';
 export { default as PersonalForm } from './PersonalForm';

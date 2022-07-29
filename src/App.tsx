@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
-import { HospitalForm, PersonalForm } from './pages';
+import { CenterForm, PersonalForm } from './pages';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import { Grid } from '@mui/material';
 import { TextSection } from './components';
 
-import { useRegisterCenter, useRegisterProfile } from './hooks';
+import { useRegisterCenter, useRegisterProfile, useUploadImage } from './hooks';
 
 interface IFormInput {
   centerName: string;
@@ -22,6 +23,7 @@ interface IFormInput {
 }
 
 interface PersonalFormInput {
+  profileImg: any;
   name: string;
   sex: { label: string; value: string };
   location: { label: string; value: string };
@@ -49,13 +51,14 @@ export default function App() {
   const { handleSubmit, control } = useForm<IFormInput>();
   const { handleSubmit: personalSubmit, control: personalCtrl } = useForm<PersonalFormInput>();
   const { createCenter } = useRegisterCenter();
-  const { createProfile, error: profileError } = useRegisterProfile();
+  const { loadedProfileImage, handleProfileImageChange, handleRemove } = useUploadImage();
+  const { createProfile } = useRegisterProfile();
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     createCenter({
       variables: {
         centerName: data.centerName,
-        centerLocation: '없음',
+        centerLocation: data.location?.value,
         centerAddress: data.address,
         centerBizzNumber: data.bizzNumber,
         centerSubject: data.subject,
@@ -68,14 +71,13 @@ export default function App() {
   };
 
   const onPersonalSubmit: SubmitHandler<PersonalFormInput> = data => {
-    // alert(JSON.stringify(data));
     createProfile({
       variables: {
         proName: data.name,
+        proSex: data.sex?.value,
+        proLocation: data.location?.value,
+        proMajor: data.major?.value,
         proInfo: data.info,
-        proSex: '없음',
-        proLocation: '없음',
-        proMajor: data.major || '없음',
       },
     });
   };
@@ -92,7 +94,16 @@ export default function App() {
       <TextSection toggle={toggle} />
       <Form onSubmit={!toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
         <Grid container spacing={2}>
-          {!toggle ? <HospitalForm control={control} /> : <PersonalForm control={personalCtrl} />}
+          {!toggle ? (
+            <CenterForm control={control} />
+          ) : (
+            <PersonalForm
+              control={personalCtrl}
+              loadedProfileImage={loadedProfileImage}
+              handleProfileImageChange={handleProfileImageChange}
+              handleRemove={handleRemove}
+            />
+          )}
         </Grid>
       </Form>
     </Block>

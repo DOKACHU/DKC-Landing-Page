@@ -41,6 +41,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
         <Controller
           name="location"
           control={control}
+          defaultValue={{ value: '00', label: '서울' }}
           render={({ field }) => (
             <Select
               {...field}
