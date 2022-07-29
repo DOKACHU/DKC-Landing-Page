@@ -73,6 +73,7 @@ export default function App() {
   const onPersonalSubmit: SubmitHandler<PersonalFormInput> = data => {
     createProfile({
       variables: {
+        proImage: loadedProfileImage.imagePreviewUrl,
         proName: data.name,
         proSex: data.sex?.value,
         proLocation: data.location?.value,

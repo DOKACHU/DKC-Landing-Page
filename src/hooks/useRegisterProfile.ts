@@ -8,6 +8,7 @@ export const RegisterProfile = gql`
     $proSex: String!
     $proLocation: String!
     $proMajor: String!
+    $proImage: String!
   ) {
     registerProfile(
       pro_name: $proName
@@ -15,6 +16,7 @@ export const RegisterProfile = gql`
       pro_sex: $proSex
       pro_location: $proLocation
       pro_major: $proMajor
+      pro_image: $proImage
     ) {
       ok
       message
