@@ -18,6 +18,7 @@ interface IFormInput {
   desc: string;
   phoneNumber: string;
   email: string;
+  tags: string;
   policy: string;
   checked: boolean;
 }
@@ -46,6 +47,10 @@ const Form = styled.form`
   /* border: 1px solid red; */
 `;
 
+const convertString = (str: string) => {
+  return str;
+};
+
 export default function App() {
   const [toggle, setToggle] = useState(false);
   const { handleSubmit, control } = useForm<IFormInput>();
@@ -55,19 +60,22 @@ export default function App() {
   const { createProfile } = useRegisterProfile();
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
-    createCenter({
-      variables: {
-        centerName: data.centerName,
-        centerLocation: data.location?.value,
-        centerAddress: data.address,
-        centerBizzNumber: data.bizzNumber,
-        centerSubject: data.subject,
-        centerProCount: Number(data.proCount),
-        centerDescription: data.desc,
-        centerPhone: data.phoneNumber,
-        centerEmail: data.email,
-      },
-    });
+    // const result = convertString(data.tags);
+    console.log('data', data);
+
+    // createCenter({
+    //   variables: {
+    //     centerName: data.centerName,
+    //     centerLocation: data.location?.value,
+    //     centerAddress: data.address,
+    //     centerBizzNumber: data.bizzNumber,
+    //     centerSubject: data.subject,
+    //     centerProCount: Number(data.proCount),
+    //     centerDescription: data.desc,
+    //     centerPhone: data.phoneNumber,
+    //     centerEmail: data.email,
+    //   },
+    // });
   };
 
   const onPersonalSubmit: SubmitHandler<PersonalFormInput> = data => {

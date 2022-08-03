@@ -157,9 +157,20 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
         />
       </Grid>
 
-      {/* auto complete */}
+      {/*TODO: auto complete */}
       <Grid item xs={12}>
-        <div>태그 입력</div>
+        <Controller
+          name="tags"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <CustomInput
+              {...field}
+              type="tags"
+              label="병원 검색 키워드 (키워드는 최대 3개가지 입력 가능합니다.)"
+            />
+          )}
+        />
       </Grid>
 
       <Grid item xs={12}>
@@ -187,7 +198,9 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
           />
           <span>이용약관 및 도카추 회원 가입에 동의합니다.</span>
         </div>
-        <Button type="submit">제출하기</Button>
+        <Button disabled type="submit">
+          제출하기
+        </Button>
       </Footer>
     </>
   );

@@ -21,6 +21,10 @@ const CustomButton = styled.button<ButtonProps>`
   &:hover {
     background-color: #e4e4e4;
   }
+
+  &:disabled {
+    background-color: lightgray;
+  }
 `;
 
 interface ButtonProps {
@@ -28,11 +32,12 @@ interface ButtonProps {
   label?: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
   btnType?: string;
+  disabled?: boolean;
 }
 
-export default function Button({ type, btnType, children, ...restProps }: ButtonProps) {
+export default function Button({ disabled, type, btnType, children, ...restProps }: ButtonProps) {
   return (
-    <CustomButton btnType={btnType} {...restProps} type={type}>
+    <CustomButton disabled btnType={btnType} {...restProps} type={type}>
       {children}
     </CustomButton>
   );
