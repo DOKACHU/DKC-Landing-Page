@@ -47,10 +47,6 @@ const Form = styled.form`
   /* border: 1px solid red; */
 `;
 
-const convertString = (str: string) => {
-  return str;
-};
-
 export default function App() {
   const [toggle, setToggle] = useState(false);
   const { handleSubmit, control } = useForm<IFormInput>();
