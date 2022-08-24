@@ -18,6 +18,7 @@ interface IFormInput {
   desc: string;
   phoneNumber: string;
   email: string;
+  tags: string;
   policy: string;
   checked: boolean;
 }
@@ -45,6 +46,10 @@ const Test = styled.div`
 const Form = styled.form`
   /* border: 1px solid red; */
 `;
+
+const convertString = (str: string) => {
+  return str;
+};
 
 export default function App() {
   const [toggle, setToggle] = useState(false);

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useRef, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 export const RegisterCenter = gql`
   mutation RegisterCenter(
@@ -38,12 +39,27 @@ const onCompleted = (data: any) => {
 };
 
 const useRegisterCenter = () => {
+  const [tags, setTags] = useState<any>([]);
+  const tagsRef = useRef<any>(null);
   const [createCenter, { loading, error }] = useMutation(RegisterCenter, {
     onCompleted,
-    // refetchQueries: ['SeeCenterInUser'],
   });
 
-  return { createCenter, loading, error };
+  const handleClick = (e: any) => {
+    const { current } = tagsRef;
+    console.log(current.value);
+  };
+
+  const handleTags = (e: any) => {
+    const { value } = e.target;
+    if (e.key === 'Enter') {
+      setTags([...tags, value]);
+    }
+  };
+
+  console.log('tags', tags);
+
+  return { createCenter, loading, error, handleTags, tags, tagsRef, handleClick };
 };
 
 export default useRegisterCenter;
