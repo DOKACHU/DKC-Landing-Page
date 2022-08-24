@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-// import { gql, useMutation } from '@apollo/client';
-import { gql, useMutation } from 'urql';
+import { gql, useMutation } from '@apollo/client';
+// import { gql, useMutation } from 'urql';
 
 interface ImageProps {
   imagePreviewUrl?: any;
@@ -71,7 +72,8 @@ const useUploadImage = () => {
   // s3 upload
   const handleUpload = async () => {
     const file = loadedProfileImage.imageBlob;
-    const result = await uploadFile({ file });
+    console.log('file', file);
+    // const result = await uploadFile({ file });
   };
 
   return { loadedProfileImage, handleProfileImageChange, handleRemove, handleUpload };
