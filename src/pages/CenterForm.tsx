@@ -198,9 +198,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
           />
           <span>이용약관 및 도카추 회원 가입에 동의합니다.</span>
         </div>
-        <Button disabled type="submit">
-          제출하기
-        </Button>
+        <Button type="submit">제출하기</Button>
       </Footer>
     </>
   );
