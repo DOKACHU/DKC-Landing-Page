@@ -40,6 +40,7 @@ const onCompleted = (data: any) => {
 
 const useRegisterCenter = () => {
   const [tags, setTags] = useState<any>([]);
+
   const tagsRef = useRef<any>(null);
   const [createCenter, { loading, error }] = useMutation(RegisterCenter, {
     onCompleted,
@@ -48,18 +49,20 @@ const useRegisterCenter = () => {
   const handleClick = (e: any) => {
     const { current } = tagsRef;
     console.log(current.value);
+    setTags([...tags, current.value]);
+    e.target.value = '';
   };
 
-  const handleTags = (e: any) => {
-    const { value } = e.target;
-    if (e.key === 'Enter') {
-      setTags([...tags, value]);
-    }
-  };
+  // const handleTags = (e: any) => {
+  //   const { value } = e.target;
+  //   if (e.key === 'Enter') {
+  //     setTags([...tags, value]);
+  //   }
+  // };
 
   console.log('tags', tags);
 
-  return { createCenter, loading, error, handleTags, tags, tagsRef, handleClick };
+  return { createCenter, loading, error, tags, tagsRef, handleClick };
 };
 
 export default useRegisterCenter;

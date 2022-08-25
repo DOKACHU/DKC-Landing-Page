@@ -51,7 +51,7 @@ export default function CustomInput({
   label,
   ...props
 }: CustomInputProps) {
-  const { handleTags, tagsRef, handleClick, tags } = useRegisterCenter();
+  const { tagsRef, handleClick, tags } = useRegisterCenter();
 
   return (
     <Wrapper>
@@ -63,11 +63,9 @@ export default function CustomInput({
             style={{
               width: '90%',
             }}
-            ref={tagsRef}
             value={value}
-            onClick={onClick}
+            ref={tagsRef}
             {...props}
-            onKeyDown={handleTags}
           />
           <Button type="button" onClick={handleClick}>
             추가
