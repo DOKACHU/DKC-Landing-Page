@@ -46,7 +46,7 @@ const useRegisterCenter = () => {
     onCompleted,
   });
 
-  const handleClick = () => {
+  const handleClick = (e: any) => {
     const { current } = tagsRef;
     console.log(current.value);
     setTags([...tags, current.value]);
