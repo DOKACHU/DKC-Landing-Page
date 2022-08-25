@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Grid } from '@mui/material';
 import { TextSection } from './components';
 
-import { useRegisterCenter, useRegisterProfile, useUploadImage } from './hooks';
+import { useUploadImage } from './hooks';
 
 interface IFormInput {
   centerName: string;
@@ -47,22 +47,16 @@ const Form = styled.form`
   /* border: 1px solid red; */
 `;
 
-const convertString = (str: string) => {
-  return str;
-};
-
 export default function App() {
   const [toggle, setToggle] = useState(false);
   const { handleSubmit, control } = useForm<IFormInput>();
   const { handleSubmit: personalSubmit, control: personalCtrl } = useForm<PersonalFormInput>();
-  const { createCenter } = useRegisterCenter();
+  // const { createCenter } = useRegisterCenter();
   const { loadedProfileImage, handleProfileImageChange, handleRemove } = useUploadImage();
-  const { createProfile } = useRegisterProfile();
+  // const { createProfile } = useRegisterProfile();
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
-    // const result = convertString(data.tags);
-    console.log('data', data);
-
+    alert(JSON.stringify(data));
     // createCenter({
     //   variables: {
     //     centerName: data.centerName,
@@ -78,17 +72,20 @@ export default function App() {
     // });
   };
 
-  const onPersonalSubmit: SubmitHandler<PersonalFormInput> = data => {
-    createProfile({
-      variables: {
-        proImage: loadedProfileImage.imagePreviewUrl,
-        proName: data.name,
-        proSex: data.sex?.value,
-        proLocation: data.location?.value,
-        proMajor: data.major?.value,
-        proInfo: data.info,
-      },
-    });
+  const onPersonalSubmit: SubmitHandler<PersonalFormInput> = async data => {
+    alert(JSON.stringify(data));
+    // TODO: UPLOAD TEST
+    // await handleUpload();
+    // createProfile({
+    //   variables: {
+    //     proImage: loadedProfileImage.imagePreviewUrl,
+    //     proName: data.name,
+    //     proSex: data.sex?.value,
+    //     proLocation: data.location?.value,
+    //     proMajor: data.major?.value,
+    //     proInfo: data.info,
+    //   },
+    // });
   };
 
   const handleToggle = () => {

@@ -35,9 +35,9 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-export default function Button({ disabled, type, btnType, children, ...restProps }: ButtonProps) {
+export default function Button({ type, btnType, children, ...restProps }: ButtonProps) {
   return (
-    <CustomButton disabled btnType={btnType} {...restProps} type={type}>
+    <CustomButton btnType={btnType} {...restProps} type={type}>
       {children}
     </CustomButton>
   );
