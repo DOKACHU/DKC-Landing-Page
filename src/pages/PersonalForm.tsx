@@ -3,7 +3,7 @@ import { Button } from '../components';
 import Select from 'react-select';
 import { Controller } from 'react-hook-form';
 import { Grid } from '@mui/material';
-import { CustomInput, CustomTextArea } from '../components';
+import { CustomInput, CustomTextArea, AddForm } from '../components';
 import styled from 'styled-components';
 import defaultImg from './default.png';
 
@@ -164,6 +164,11 @@ const PersonalForm = ({
           defaultValue=""
           render={({ field }) => <CustomTextArea {...field} label="간단 소개글 (3000자 이내)" />}
         />
+      </Grid>
+
+      {/* Add Form */}
+      <Grid item xs={12}>
+        <AddForm />
       </Grid>
 
       <Footer xs={12}>
