@@ -57,6 +57,27 @@ const PersonalForm = ({
   handleProfileImageChange,
   handleRemove,
 }: PersonalFormProps) => {
+  const handleAddClick = (e: any) => {
+    e.preventDefault();
+    const { name, value: id } = e.target;
+    const index = Number(id);
+
+    const newValue = {
+      innerId: 12,
+      startDate: '',
+      endDate: '',
+      content: '',
+    };
+
+    setForm((prev: any) => {
+      const result = [...prev, { ...prev[index], children: [...prev[index].children, newValue] }]
+        .reduce((m, o) => m.set(o.id, o), new Map())
+        .values();
+      return [...result];
+    });
+  };
+
+  //
   return (
     <>
       {/* 4 */}
@@ -173,8 +194,8 @@ const PersonalForm = ({
       {/* Add Form */}
 
       <Grid item xs={12}>
-        {addForm.map((item: any, i: number) => {
-          return <AddForm key={`${item}-${i}`} {...item} />;
+        {addForm?.map((item: any, i: number) => {
+          return <AddForm key={`${item}-${i}`} {...item} onClick={handleAddClick} />;
         })}
       </Grid>
 

@@ -56,54 +56,56 @@ export default function App() {
   // const { createProfile } = useRegisterProfile();
   const [addForm, setForm] = useState([
     {
-      id: 1,
+      id: 0,
       label: '경력',
-      type: 'a',
+      type: 'career',
+      isAdd: false,
       children: [
         {
           innerId: 11,
-          startDate: 'YYYY-MM-DD',
-          endDate: 'YYYY-MM-DD',
+          startDate: 'YYYY-MM',
+          endDate: 'YYYY-MM',
           content: '병원명',
         },
       ],
     },
     {
-      id: 2,
+      id: 1,
       label: '학력',
-      type: 'a',
+      type: 'school',
+      isAdd: false,
+
       children: [
         {
-          innerId: 11,
-          startDate: '',
-          endDate: '',
+          innerId: 12,
+          startDate: 'YYYY-MM',
+          endDate: 'YYYY-MM',
           content: '서울대',
         },
       ],
     },
     {
-      id: 3,
+      id: 2,
       label: '외국어',
-      type: 'b',
+      type: 'lang',
+      isAdd: false,
 
       children: [
         {
-          innerId: 11,
-          startDate: '',
-          endDate: '',
+          startDate: 'YYYY-MM-DD',
+          innerId: 13,
           content: '언어',
         },
       ],
     },
     {
-      id: 4,
+      id: 3,
       label: '채널',
-      type: 'b',
+      type: 'channel',
+      isAdd: false,
       children: [
         {
-          innerId: 11,
-          startDate: '',
-          endDate: '',
+          innerId: 14,
           content: 'youtube',
         },
       ],
@@ -155,7 +157,7 @@ export default function App() {
       <TextSection toggle={toggle} />
       <Form onSubmit={!toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
         <Grid container spacing={2}>
-          {!toggle ? (
+          {toggle ? (
             <CenterForm control={control} />
           ) : (
             <PersonalForm

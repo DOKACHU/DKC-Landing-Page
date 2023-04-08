@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from 'styled-components';
 
 const AddSection = styled.div`
@@ -38,19 +38,42 @@ const Container = styled.div`
   margin-bottom: 20px;
 `;
 
-export default function AddForm({ label, children }: any) {
-  console.log({ children });
+const Input = styled.input`
+  padding: 12px 16px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+
+  &:hover {
+    border: 1px solid #e4e4e4;
+  }
+
+  &:focus {
+    background-color: #f4f4f4;
+  }
+`;
+
+export default function AddForm({ id, label, children, type, onClick }: any) {
+  //   console.log({ children });
+
   return (
     <Container>
       <label>{label}</label>
       <CustomDivdier />
-      <CustomButton type="button">+추가하기 </CustomButton>
 
-      {children.map((v: any, i: number) => {
+      {/*  */}
+      <CustomButton type="button" name={type} value={id} onClick={onClick}>
+        +추가하기
+      </CustomButton>
+
+      {/*  */}
+      {children?.map((v: any, i: number) => {
+        const is = ['lang', 'channel'].includes(type);
         return (
           <AddSection key={i}>
-            {v.type === 'a' ? <Span>{`${v.startDate} - ${v.endDate}`}</Span> : null}
-            <Span>{v.content}</Span>
+            {is ? null : <Span>{`${v.startDate} - ${v.endDate}`}</Span>}
+            {v.content === '' ? <Input /> : <Span>{v.content}</Span>}
           </AddSection>
         );
       })}
