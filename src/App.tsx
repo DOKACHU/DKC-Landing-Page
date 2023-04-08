@@ -54,6 +54,61 @@ export default function App() {
   // const { createCenter } = useRegisterCenter();
   const { loadedProfileImage, handleProfileImageChange, handleRemove } = useUploadImage();
   // const { createProfile } = useRegisterProfile();
+  const [addForm, setForm] = useState([
+    {
+      id: 1,
+      label: '경력',
+      type: 'a',
+      children: [
+        {
+          innerId: 11,
+          startDate: 'YYYY-MM-DD',
+          endDate: 'YYYY-MM-DD',
+          content: '병원명',
+        },
+      ],
+    },
+    {
+      id: 2,
+      label: '학력',
+      type: 'a',
+      children: [
+        {
+          innerId: 11,
+          startDate: '',
+          endDate: '',
+          content: '서울대',
+        },
+      ],
+    },
+    {
+      id: 3,
+      label: '외국어',
+      type: 'b',
+
+      children: [
+        {
+          innerId: 11,
+          startDate: '',
+          endDate: '',
+          content: '언어',
+        },
+      ],
+    },
+    {
+      id: 4,
+      label: '채널',
+      type: 'b',
+      children: [
+        {
+          innerId: 11,
+          startDate: '',
+          endDate: '',
+          content: 'youtube',
+        },
+      ],
+    },
+  ]);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     alert(JSON.stringify(data));
@@ -104,6 +159,8 @@ export default function App() {
             <CenterForm control={control} />
           ) : (
             <PersonalForm
+              setForm={setForm}
+              addForm={addForm}
               control={personalCtrl}
               loadedProfileImage={loadedProfileImage}
               handleProfileImageChange={handleProfileImageChange}

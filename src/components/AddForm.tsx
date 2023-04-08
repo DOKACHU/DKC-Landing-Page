@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const AddSection = styled.div`
@@ -34,16 +34,26 @@ const Span = styled.span`
   color: #000;
 `;
 
-export default function AddForm() {
+const Container = styled.div`
+  margin-bottom: 20px;
+`;
+
+export default function AddForm({ label, children }: any) {
+  console.log({ children });
   return (
-    <>
-      <label>경력*</label>
+    <Container>
+      <label>{label}</label>
       <CustomDivdier />
       <CustomButton type="button">+추가하기 </CustomButton>
-      <AddSection>
-        <Span>YYYY. MM. - YYYY. MM</Span>
-        <Span>병원명</Span>
-      </AddSection>
-    </>
+
+      {children.map((v: any, i: number) => {
+        return (
+          <AddSection key={i}>
+            {v.type === 'a' ? <Span>{`${v.startDate} - ${v.endDate}`}</Span> : null}
+            <Span>{v.content}</Span>
+          </AddSection>
+        );
+      })}
+    </Container>
   );
 }

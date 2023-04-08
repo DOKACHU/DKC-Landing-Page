@@ -8,6 +8,8 @@ import styled from 'styled-components';
 import defaultImg from './default.png';
 
 interface PersonalFormProps {
+  setForm: any;
+  addForm: any;
   control: any;
   loadedProfileImage: any;
   handleProfileImageChange: (e: any) => void;
@@ -48,6 +50,8 @@ const Img = styled.img`
 `;
 
 const PersonalForm = ({
+  setForm,
+  addForm,
   control,
   loadedProfileImage,
   handleProfileImageChange,
@@ -167,8 +171,11 @@ const PersonalForm = ({
       </Grid>
 
       {/* Add Form */}
+
       <Grid item xs={12}>
-        <AddForm />
+        {addForm.map((item: any, i: number) => {
+          return <AddForm key={`${item}-${i}`} {...item} />;
+        })}
       </Grid>
 
       <Footer xs={12}>
