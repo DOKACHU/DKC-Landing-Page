@@ -9,6 +9,7 @@ import { Button } from '../components';
 import { usePostCode } from '../hooks';
 import DaumPostcode from 'react-daum-postcode';
 import arrow from './arrow.png';
+import defaultImg from './default.png';
 
 const style = {
   position: 'absolute' as const,
@@ -23,7 +24,26 @@ const style = {
 };
 interface HospitalFormProps {
   control: any;
+  loadedProfileImage: any;
+  handleProfileImageChange: (e: any) => void;
+  handleRemove: () => void;
 }
+const CustomImgWrapper = styled.div`
+  border: 1px solid #f4f4f4;
+  border-radius: 16px;
+  width: 140px;
+  height: 140px;
+
+  &:hover {
+    filter: brightness(90%);
+  }
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+`;
 
 const Footer = styled(Grid)`
   border: 1px solid #e5e5e5;
@@ -68,7 +88,12 @@ const ArrowImg = styled.img`
   z-index: 10;
 `;
 
-const HospitalForm = ({ control }: HospitalFormProps) => {
+const CenterForm = ({
+  control,
+  loadedProfileImage,
+  handleProfileImageChange,
+  handleRemove,
+}: HospitalFormProps) => {
   const { openPostcode, handle, inputRef, setOpenPostcode } = usePostCode();
   // const inputRef = useRef<any>(null);
 
@@ -161,16 +186,52 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
       </Grid>
 
       {/* 4 사업자 등록번호 */}
-      <Grid item xs={12}>
-        <Grid item xs={6}>
-          <Controller
-            name="bizzNumber"
-            control={control}
-            defaultValue={0}
-            render={({ field }) => <CustomInput {...field} label="사업자 등록번호" />}
-          />
-        </Grid>
+      {/* <Grid item xs={12}> */}
+      <Grid item xs={6}>
+        <Controller
+          name="bizzNumber"
+          control={control}
+          defaultValue={0}
+          render={({ field }) => <CustomInput {...field} label="사업자 등록번호" />}
+        />
       </Grid>
+
+      <Grid item xs={6}>
+        <Controller
+          name="profileImg"
+          control={control}
+          render={({ field }) => {
+            return (
+              <label>
+                사업자 이미지 등록
+                <input
+                  {...field}
+                  accept="image/*"
+                  id="profile-image-input" // label htmlFor
+                  type="file" // type="file"
+                  hidden // input을 숨기고 다른 스타일링위해
+                  onChange={e => {
+                    handleProfileImageChange(e);
+                  }}
+                />
+              </label>
+            );
+          }}
+        />
+        <CustomImgWrapper>
+          <label htmlFor="profile-image-input">
+            {loadedProfileImage.imagePreviewUrl ? (
+              <Img alt="" src={loadedProfileImage.imagePreviewUrl} />
+            ) : (
+              <Img alt="default" src={defaultImg} />
+            )}
+          </label>
+        </CustomImgWrapper>
+        <button type="button" onClick={handleRemove}>
+          이미지 삭제
+        </button>
+      </Grid>
+      {/* </Grid> */}
 
       {/* <Grid direction="row" item xs={12}> */}
       {/* 진료항목 */}
@@ -276,4 +337,4 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
   );
 };
 
-export default HospitalForm;
+export default CenterForm;

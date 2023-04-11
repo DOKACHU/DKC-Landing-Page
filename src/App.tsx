@@ -187,7 +187,12 @@ export default function App() {
         <Form onSubmit={!toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
           <Grid container spacing={2}>
             {toggle ? (
-              <CenterForm control={control} />
+              <CenterForm
+                control={control}
+                loadedProfileImage={loadedProfileImage}
+                handleProfileImageChange={handleProfileImageChange}
+                handleRemove={handleRemove}
+              />
             ) : (
               <PersonalForm
                 channel={channel}
