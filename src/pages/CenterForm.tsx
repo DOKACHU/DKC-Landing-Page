@@ -110,8 +110,14 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
         <Controller
           name="bizzNumber"
           control={control}
-          defaultValue={0}
-          render={({ field }) => <CustomInput {...field} label="상세주소" />}
+          defaultValue={''}
+          render={({ field }) => (
+            <CustomInput
+              {...field}
+              placeholder="나머지 상세 주소를 입력해주세요."
+              label="상세주소"
+            />
+          )}
         />
       </Grid>
 
@@ -187,6 +193,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
             <CustomInput
               {...field}
               type="tags"
+              placeholder="텍스트만 입력 가능합니다."
               label="병원 검색 키워드 (키워드는 최대 3개가지 입력 가능합니다.)"
             />
           )}

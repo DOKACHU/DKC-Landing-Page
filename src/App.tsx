@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { CenterForm, PersonalForm } from './pages';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 import { TextSection } from './components';
 
 import { useUploadImage } from './hooks';
@@ -160,28 +160,30 @@ export default function App() {
 
   return (
     <Block>
-      <Test>
-        <button onClick={handleToggle}> {!toggle ? '개인' : '병원'}변경 </button>
-      </Test>
-      <TextSection toggle={toggle} />
-      <Form onSubmit={!toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
-        <Grid container spacing={2}>
-          {!toggle ? (
-            <CenterForm control={control} />
-          ) : (
-            <PersonalForm
-              career={career}
-              setCareer={setCareer}
-              // setForm={setForm}
-              // addForm={addForm}
-              control={personalCtrl}
-              loadedProfileImage={loadedProfileImage}
-              handleProfileImageChange={handleProfileImageChange}
-              handleRemove={handleRemove}
-            />
-          )}
-        </Grid>
-      </Form>
+      <Container>
+        <Test>
+          <button onClick={handleToggle}> {!toggle ? '개인' : '병원'}변경 </button>
+        </Test>
+        <TextSection toggle={toggle} />
+        <Form onSubmit={!toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
+          <Grid container spacing={2}>
+            {!toggle ? (
+              <CenterForm control={control} />
+            ) : (
+              <PersonalForm
+                career={career}
+                setCareer={setCareer}
+                // setForm={setForm}
+                // addForm={addForm}
+                control={personalCtrl}
+                loadedProfileImage={loadedProfileImage}
+                handleProfileImageChange={handleProfileImageChange}
+                handleRemove={handleRemove}
+              />
+            )}
+          </Grid>
+        </Form>
+      </Container>
     </Block>
   );
 }

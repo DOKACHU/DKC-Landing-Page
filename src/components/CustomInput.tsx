@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from 'styled-components';
-import { FormGroup } from '@mui/material';
+import { FormGroup, Chip, Stack } from '@mui/material';
 import { useRegisterCenter } from '../hooks';
 
 const Wrapper = styled.div`
@@ -30,6 +30,12 @@ const Input = styled.input`
   }
 `;
 
+const TagBlock = styled.div`
+  span + span {
+    margin-left: 10px;
+  }
+`;
+
 const Button = styled.button`
   width: 10%;
 `;
@@ -41,6 +47,7 @@ interface CustomInputProps {
   onChange: (...event: any[]) => void;
   onClick?: () => void;
   type?: string;
+  placeholder?: string;
 }
 
 export default function CustomInput({
@@ -49,6 +56,7 @@ export default function CustomInput({
   ref,
   onClick,
   label,
+  placeholder,
   ...props
 }: CustomInputProps) {
   const { tagsRef, handleClick, tags } = useRegisterCenter();
@@ -65,26 +73,26 @@ export default function CustomInput({
             }}
             value={value}
             ref={tagsRef}
+            placeholder={placeholder}
             {...props}
           />
           <Button type="button" onClick={handleClick}>
             추가
           </Button>
-          {tags.map((v: any, i: any) => {
-            return (
-              <div
-                style={{
-                  border: '1px solid red',
-                }}
-                key={i}
-              >
-                {v}
-              </div>
-            );
-          })}
+          <Stack
+            style={{
+              marginTop: '10px',
+            }}
+            direction={'row'}
+            spacing={1}
+          >
+            {tags.map((tagLabel: string, i: any) => {
+              return <Chip label={tagLabel} key={i} />;
+            })}
+          </Stack>
         </FormGroup>
       ) : (
-        <Input ref={ref} value={value} onClick={onClick} {...props} />
+        <Input ref={ref} value={value} onClick={onClick} {...props} placeholder={placeholder} />
       )}
     </Wrapper>
   );

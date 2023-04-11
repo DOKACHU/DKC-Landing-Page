@@ -39,7 +39,7 @@ export default function CustomTextArea({ value, label, ...props }: CustomTextAre
   return (
     <Wrapper>
       <Span>{label}*</Span>
-      <TextArea value={value} {...props} />
+      <TextArea rows={8} value={value} {...props} />
     </Wrapper>
   );
 }
