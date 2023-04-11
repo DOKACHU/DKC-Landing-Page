@@ -46,6 +46,7 @@ const CustomSelect = styled(Select)`
     border: 1px solid #000;
     border-radius: 8px;
     padding: 3px;
+    margin-top: 8px;
   }
   .react-select__indicator-separator {
     display: none;
@@ -60,7 +61,7 @@ const CustomSelect = styled(Select)`
   z-index: 9;
 `;
 
-const Img = styled.img`
+const ArrowImg = styled.img`
   position: absolute;
   top: 45%;
   right: 15px;
@@ -109,7 +110,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
                     { value: '04', label: '광주' },
                   ]}
                 />
-                <Img src={arrow} alt="" />
+                <ArrowImg src={arrow} alt="" />
               </Block>
             )}
           />

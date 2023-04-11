@@ -6,6 +6,7 @@ import { Grid } from '@mui/material';
 import { CustomInput, CustomTextArea, AddForm } from '../components';
 import styled from 'styled-components';
 import defaultImg from './default.png';
+import arrow from './arrow.png';
 
 interface PersonalFormProps {
   career: any;
@@ -49,9 +50,39 @@ const Img = styled.img`
   border-radius: 16px;
 `;
 
+const Block = styled.div`
+  position: relative;
+`;
+const CustomSelect = styled(Select)`
+  .react-select__control {
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 3px;
+    margin-top: 8px;
+  }
+  .react-select__indicator-separator {
+    display: none;
+  }
+  .react-select__indicator {
+    display: none;
+
+    .react-select__dropdown-indicator {
+      /* background-color: #000000; */
+    }
+  }
+  z-index: 9;
+`;
+
+const ArrowImg = styled.img`
+  position: absolute;
+  top: 45%;
+  right: 15px;
+  z-index: 10;
+`;
+
 const PersonalForm = ({
-  career,
-  setCareer,
+  // career,
+  // setCareer,
   control,
   loadedProfileImage,
   handleProfileImageChange,
@@ -78,6 +109,7 @@ const PersonalForm = ({
   // };
 
   const handleAddClick = (e: any) => {
+    e.preventDefault();
     console.log('work');
   };
   const addForm = [
@@ -152,14 +184,19 @@ const PersonalForm = ({
           control={control}
           defaultValue={{ value: 'male', label: '남자' }}
           render={({ field }) => (
-            <Select
-              defaultValue={{ value: 'male', label: '남자' }}
-              {...field}
-              options={[
-                { value: 'male', label: '남자' },
-                { value: 'female', label: '여자' },
-              ]}
-            />
+            <Block>
+              <CustomSelect
+                {...field}
+                className="react-select-container"
+                classNamePrefix="react-select"
+                defaultValue={{ value: 'male', label: '남자' }}
+                options={[
+                  { value: 'male', label: '남자' },
+                  { value: 'female', label: '여자' },
+                ]}
+              />
+              <ArrowImg src={arrow} alt="" />
+            </Block>
           )}
         />
       </Grid>
@@ -172,14 +209,19 @@ const PersonalForm = ({
           control={control}
           defaultValue={{ value: '02', label: '서울' }}
           render={({ field }) => (
-            <Select
-              {...field}
-              defaultValue={{ value: '02', label: '서울' }}
-              options={[
-                { value: '02', label: '서울' },
-                { value: '032', label: '인천' },
-              ]}
-            />
+            <Block>
+              <CustomSelect
+                className="react-select-container"
+                classNamePrefix="react-select"
+                {...field}
+                defaultValue={{ value: '02', label: '서울' }}
+                options={[
+                  { value: '02', label: '서울' },
+                  { value: '032', label: '인천' },
+                ]}
+              />
+              <ArrowImg src={arrow} alt="" />
+            </Block>
           )}
         />
       </Grid>
@@ -190,15 +232,20 @@ const PersonalForm = ({
           control={control}
           defaultValue={{ value: '1', label: '도수치료' }}
           render={({ field }) => (
-            <Select
-              {...field}
-              defaultValue={{ value: '1', label: '도수치료' }}
-              options={[
-                { value: '1', label: '도수치료' },
-                { value: '2', label: '카이로프택틱' },
-                { value: '3', label: '추나요법' },
-              ]}
-            />
+            <Block>
+              <CustomSelect
+                className="react-select-container"
+                classNamePrefix="react-select"
+                {...field}
+                defaultValue={{ value: '1', label: '도수치료' }}
+                options={[
+                  { value: '1', label: '도수치료' },
+                  { value: '2', label: '카이로프택틱' },
+                  { value: '3', label: '추나요법' },
+                ]}
+              />
+              <ArrowImg src={arrow} alt="" />
+            </Block>
           )}
         />
       </Grid>
