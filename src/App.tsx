@@ -53,64 +53,73 @@ export default function App() {
   const { handleSubmit: personalSubmit, control: personalCtrl } = useForm<PersonalFormInput>();
   // const { createCenter } = useRegisterCenter();
   const { loadedProfileImage, handleProfileImageChange, handleRemove } = useUploadImage();
-  // const { createProfile } = useRegisterProfile();
-  const [addForm, setForm] = useState([
+  const [career, setCareer] = useState([
     {
-      id: 0,
-      label: '경력',
-      type: 'career',
-      isAdd: false,
-      children: [
-        {
-          innerId: 11,
-          startDate: 'YYYY-MM',
-          endDate: 'YYYY-MM',
-          content: '병원명',
-        },
-      ],
-    },
-    {
-      id: 1,
-      label: '학력',
-      type: 'school',
-      isAdd: false,
-
-      children: [
-        {
-          innerId: 12,
-          startDate: 'YYYY-MM',
-          endDate: 'YYYY-MM',
-          content: '서울대',
-        },
-      ],
-    },
-    {
-      id: 2,
-      label: '외국어',
-      type: 'lang',
-      isAdd: false,
-
-      children: [
-        {
-          startDate: 'YYYY-MM-DD',
-          innerId: 13,
-          content: '언어',
-        },
-      ],
-    },
-    {
-      id: 3,
-      label: '채널',
-      type: 'channel',
-      isAdd: false,
-      children: [
-        {
-          innerId: 14,
-          content: 'youtube',
-        },
-      ],
+      innerId: 11,
+      startDate: 'YYYY-MM',
+      endDate: 'YYYY-MM',
+      content: '병원명',
     },
   ]);
+
+  // const { createProfile } = useRegisterProfile();
+  // const [addForm, setForm] = useState([
+  //   {
+  //     id: 0,
+  //     label: '경력',
+  //     type: 'career',
+  //     isAdd: false,
+  //     children: [
+  //       {
+  //         innerId: 11,
+  //         startDate: 'YYYY-MM',
+  //         endDate: 'YYYY-MM',
+  //         content: '병원명',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 1,
+  //     label: '학력',
+  //     type: 'school',
+  //     isAdd: false,
+
+  //     children: [
+  //       {
+  //         innerId: 12,
+  //         startDate: 'YYYY-MM',
+  //         endDate: 'YYYY-MM',
+  //         content: '서울대',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     label: '외국어',
+  //     type: 'lang',
+  //     isAdd: false,
+
+  //     children: [
+  //       {
+  //         startDate: 'YYYY-MM-DD',
+  //         innerId: 13,
+  //         content: '언어',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     label: '채널',
+  //     type: 'channel',
+  //     isAdd: false,
+  //     children: [
+  //       {
+  //         innerId: 14,
+  //         content: 'youtube',
+  //       },
+  //     ],
+  //   },
+  // ]);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     alert(JSON.stringify(data));
@@ -161,8 +170,10 @@ export default function App() {
             <CenterForm control={control} />
           ) : (
             <PersonalForm
-              setForm={setForm}
-              addForm={addForm}
+              career={career}
+              setCareer={setCareer}
+              // setForm={setForm}
+              // addForm={addForm}
               control={personalCtrl}
               loadedProfileImage={loadedProfileImage}
               handleProfileImageChange={handleProfileImageChange}

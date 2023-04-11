@@ -8,8 +8,8 @@ import styled from 'styled-components';
 import defaultImg from './default.png';
 
 interface PersonalFormProps {
-  setForm: any;
-  addForm: any;
+  career: any;
+  setCareer: any;
   control: any;
   loadedProfileImage: any;
   handleProfileImageChange: (e: any) => void;
@@ -50,32 +50,54 @@ const Img = styled.img`
 `;
 
 const PersonalForm = ({
-  setForm,
-  addForm,
+  career,
+  setCareer,
   control,
   loadedProfileImage,
   handleProfileImageChange,
   handleRemove,
 }: PersonalFormProps) => {
+  // const handleAddClick = (e: any) => {
+  //   e.preventDefault();
+  //   const { name, value: id } = e.target;
+  //   const index = Number(id);
+
+  //   const newValue = {
+  //     innerId: 12,
+  //     startDate: '',
+  //     endDate: '',
+  //     content: '',
+  //   };
+
+  //   setForm((prev: any) => {
+  //     const result = [...prev, { ...prev[index], children: [...prev[index].children, newValue] }]
+  //       .reduce((m, o) => m.set(o.id, o), new Map())
+  //       .values();
+  //     return [...result];
+  //   });
+  // };
+
   const handleAddClick = (e: any) => {
-    e.preventDefault();
-    const { name, value: id } = e.target;
-    const index = Number(id);
-
-    const newValue = {
-      innerId: 12,
-      startDate: '',
-      endDate: '',
-      content: '',
-    };
-
-    setForm((prev: any) => {
-      const result = [...prev, { ...prev[index], children: [...prev[index].children, newValue] }]
-        .reduce((m, o) => m.set(o.id, o), new Map())
-        .values();
-      return [...result];
-    });
+    console.log('work');
   };
+  const addForm = [
+    {
+      id: 0,
+      label: '경력',
+    },
+    {
+      id: 1,
+      label: '학력',
+    },
+    {
+      id: 2,
+      label: '외국어',
+    },
+    {
+      id: 3,
+      label: '채널',
+    },
+  ];
 
   //
   return (
