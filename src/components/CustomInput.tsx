@@ -30,12 +30,6 @@ const Input = styled.input`
   }
 `;
 
-const TagBlock = styled.div`
-  span + span {
-    margin-left: 10px;
-  }
-`;
-
 const Button = styled.button`
   width: 10%;
 `;
