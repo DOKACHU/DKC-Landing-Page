@@ -100,26 +100,6 @@ const PersonalForm = ({
   handleProfileImageChange,
   handleRemove,
 }: PersonalFormProps) => {
-  // const handleAddClick = (e: any) => {
-  //   e.preventDefault();
-  //   const { name, value: id } = e.target;
-  //   const index = Number(id);
-
-  //   const newValue = {
-  //     innerId: 12,
-  //     startDate: '',
-  //     endDate: '',
-  //     content: '',
-  //   };
-
-  //   setForm((prev: any) => {
-  //     const result = [...prev, { ...prev[index], children: [...prev[index].children, newValue] }]
-  //       .reduce((m, o) => m.set(o.id, o), new Map())
-  //       .values();
-  //     return [...result];
-  //   });
-  // };
-
   const handleAddClick = (e: any) => {
     e.preventDefault();
     const { name } = e.target;
@@ -221,7 +201,9 @@ const PersonalForm = ({
           name="name"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} label="이름" />}
+          render={({ field }) => (
+            <CustomInput {...field} label="이름" placeholder="이름을 입력해주세요." />
+          )}
         />
       </Grid>
       <Grid item xs={6}>
@@ -303,7 +285,13 @@ const PersonalForm = ({
           name="info"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomTextArea {...field} label="간단 소개글 (3000자 이내)" />}
+          render={({ field }) => (
+            <CustomTextArea
+              {...field}
+              label="간단 소개글 (3000자 이내)"
+              placeholder="간단한 본인 소개를 작성 해주세요."
+            />
+          )}
         />
       </Grid>
 

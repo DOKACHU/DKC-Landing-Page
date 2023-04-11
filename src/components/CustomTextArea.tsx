@@ -32,14 +32,20 @@ const TextArea = styled.textarea`
 interface CustomTextAreaProps {
   label?: string;
   value: string;
+  placeholder?: string;
   onChange: (...event: any[]) => void;
 }
 
-export default function CustomTextArea({ value, label, ...props }: CustomTextAreaProps) {
+export default function CustomTextArea({
+  value,
+  label,
+  placeholder,
+  ...props
+}: CustomTextAreaProps) {
   return (
     <Wrapper>
       <Span>{label}*</Span>
-      <TextArea rows={8} value={value} {...props} />
+      <TextArea placeholder={placeholder} rows={8} value={value} {...props} />
     </Wrapper>
   );
 }

@@ -109,7 +109,9 @@ const CenterForm = ({
           name="centerName"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} label="병원 이름" />}
+          render={({ field }) => (
+            <CustomInput {...field} label="병원 이름" placeholder="병원 이름을 적어주세요." />
+          )}
         />
       </Grid>
       {/* 2 지역 */}
@@ -151,6 +153,7 @@ const CenterForm = ({
           render={({ field }) => (
             <CustomInput
               {...field}
+              placeholder="대표 주소 입력"
               label="대표주소"
               ref={inputRef}
               onClick={() => {
@@ -191,8 +194,10 @@ const CenterForm = ({
         <Controller
           name="bizzNumber"
           control={control}
-          defaultValue={0}
-          render={({ field }) => <CustomInput {...field} label="사업자 등록번호" />}
+          // defaultValue={0}
+          render={({ field }) => (
+            <CustomInput {...field} label="사업자 등록번호" placeholder="‘-’ 제외 10자리" />
+          )}
         />
       </Grid>
 
@@ -231,16 +236,29 @@ const CenterForm = ({
           이미지 삭제
         </button>
       </Grid>
-      {/* </Grid> */}
 
-      {/* <Grid direction="row" item xs={12}> */}
-      {/* 진료항목 */}
       <Grid item xs={6}>
+        <label>진료항목*</label>
         <Controller
           name="subject"
           control={control}
-          defaultValue=""
-          render={({ field }) => <CustomInput {...field} label="진료항목" />}
+          defaultValue={{ value: '00', label: '도수 치료' }}
+          render={({ field }) => (
+            <Block>
+              <CustomSelect
+                {...field}
+                className="react-select-container"
+                classNamePrefix="react-select"
+                defaultValue={{ value: '00', label: '도수 치료' }}
+                options={[
+                  { value: '00', label: '도수 치료' },
+                  { value: '01', label: '카이로 프택틱' },
+                  { value: '02', label: '추나요법' },
+                ]}
+              />
+              <ArrowImg src={arrow} alt="" />
+            </Block>
+          )}
         />
       </Grid>
 
@@ -249,8 +267,10 @@ const CenterForm = ({
         <Controller
           name="proCount"
           control={control}
-          defaultValue={0}
-          render={({ field }) => <CustomInput {...field} label="치료사 수" />}
+          // defaultValue={0}
+          render={({ field }) => (
+            <CustomInput {...field} label="치료사 수" placeholder="직접 입력" />
+          )}
         />
       </Grid>
       {/* </Grid> */}
@@ -261,7 +281,13 @@ const CenterForm = ({
           name="desc"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomTextArea {...field} label="병원 소개(3000자 제한)" />}
+          render={({ field }) => (
+            <CustomTextArea
+              {...field}
+              label="병원 소개(3000자 제한)"
+              placeholder="병원 소개를 적어주세요."
+            />
+          )}
         />
       </Grid>
 
@@ -271,7 +297,9 @@ const CenterForm = ({
           name="phoneNumber"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} label="담당자 연락처" />}
+          render={({ field }) => (
+            <CustomInput {...field} label="담당자 연락처" placeholder="010-0000-0000" />
+          )}
         />
       </Grid>
       <Grid item xs={6}>
@@ -279,7 +307,9 @@ const CenterForm = ({
           name="email"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomInput {...field} label="정보 수신 이메일" />}
+          render={({ field }) => (
+            <CustomInput {...field} label="정보 수신 이메일" placeholder="ex) user@gmail.com" />
+          )}
         />
       </Grid>
 
