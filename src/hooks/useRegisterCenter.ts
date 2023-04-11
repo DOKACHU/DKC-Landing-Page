@@ -46,11 +46,13 @@ const useRegisterCenter = () => {
     onCompleted,
   });
 
-  const handleClick = (e: any) => {
+  const handleClick = () => {
     const { current } = tagsRef;
-    console.log(current.value);
-    setTags([...tags, current.value]);
-    e.target.value = '';
+    console.log({ current });
+    if (current.value !== '') {
+      setTags([...tags, current.value]);
+      current.value = '';
+    }
   };
 
   // const handleTags = (e: any) => {
@@ -59,8 +61,6 @@ const useRegisterCenter = () => {
   //     setTags([...tags, value]);
   //   }
   // };
-
-  console.log('tags', tags);
 
   return { createCenter, loading, error, tags, tagsRef, handleClick };
 };

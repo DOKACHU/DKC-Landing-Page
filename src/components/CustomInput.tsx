@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FormGroup, Chip, Stack } from '@mui/material';
 import { useRegisterCenter } from '../hooks';
 
@@ -14,12 +14,18 @@ const Span = styled.span`
   margin-bottom: 8px;
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ isTag?: boolean }>`
   padding: 12px 16px;
   border: 1px solid #000;
   border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
+
+  ${props =>
+    props?.isTag &&
+    css`
+      border-radius: 8px 0 0 8px;
+    `};
 
   &:hover {
     border: 1px solid #e4e4e4;
@@ -32,6 +38,14 @@ const Input = styled.input`
 
 const Button = styled.button`
   width: 10%;
+  border-radius: 0 8px 8px 0;
+  border: 1px solid #000000;
+  background: #fff;
+  border-left: none;
+
+  &:hover {
+    border: 1px solid #e4e4e4;
+  }
 `;
 
 interface CustomInputProps {
@@ -62,6 +76,7 @@ export default function CustomInput({
       {type === 'tags' ? (
         <FormGroup row>
           <Input
+            isTag
             style={{
               width: '90%',
             }}
