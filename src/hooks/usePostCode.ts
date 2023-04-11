@@ -27,6 +27,7 @@ const usePostCode = () => {
     inputRef,
     handle,
     openPostcode,
+    setOpenPostcode,
   };
 };
 

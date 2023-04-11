@@ -2,13 +2,23 @@
 import React from 'react';
 import Select from 'react-select';
 import { Controller } from 'react-hook-form';
-import { Grid, Checkbox } from '@mui/material';
+import { Grid, Checkbox, Modal, Box } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 import styled from 'styled-components';
 import { Button } from '../components';
 import { usePostCode } from '../hooks';
 import DaumPostcode from 'react-daum-postcode';
-
+const style = {
+  position: 'absolute' as const,
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 interface HospitalFormProps {
   control: any;
 }
@@ -27,7 +37,7 @@ const Footer = styled(Grid)`
 `;
 
 const HospitalForm = ({ control }: HospitalFormProps) => {
-  const { openPostcode, handle, inputRef } = usePostCode();
+  const { openPostcode, handle, inputRef, setOpenPostcode } = usePostCode();
   // const inputRef = useRef<any>(null);
 
   // const handleClick = () => {
@@ -46,7 +56,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
         />
       </Grid>
       {/* 2 지역 */}
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <label>지역*</label>
         <Controller
           name="location"
@@ -69,7 +79,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
       </Grid>
 
       {/* 3 대표주소 */}
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <Controller
           name="address"
           control={control}
@@ -85,14 +95,24 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
             />
           )}
         />
+        <Modal open={openPostcode} onClose={() => setOpenPostcode(false)}>
+          <Box sx={style}>
+            <DaumPostcode
+              onComplete={handle.selectAddress} // 값을 선택할 경우 실행되는 이벤트
+              autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
+              defaultQuery="판교역로 235" // 팝업을 열때 기본적으로 입력되는 검색어
+            />
+          </Box>
+        </Modal>
+      </Grid>
 
-        {openPostcode && (
-          <DaumPostcode
-            onComplete={handle.selectAddress} // 값을 선택할 경우 실행되는 이벤트
-            autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
-            defaultQuery="판교역로 235" // 팝업을 열때 기본적으로 입력되는 검색어
-          />
-        )}
+      <Grid item xs={6}>
+        <Controller
+          name="bizzNumber"
+          control={control}
+          defaultValue={0}
+          render={({ field }) => <CustomInput {...field} label="상세주소" />}
+        />
       </Grid>
 
       {/* 4 사업자 등록번호 */}

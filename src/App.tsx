@@ -166,7 +166,7 @@ export default function App() {
       <TextSection toggle={toggle} />
       <Form onSubmit={!toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
         <Grid container spacing={2}>
-          {toggle ? (
+          {!toggle ? (
             <CenterForm control={control} />
           ) : (
             <PersonalForm
