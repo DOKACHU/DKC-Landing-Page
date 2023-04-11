@@ -52,7 +52,13 @@ export default function App() {
   const { handleSubmit, control } = useForm<IFormInput>();
   const { handleSubmit: personalSubmit, control: personalCtrl } = useForm<PersonalFormInput>();
   // const { createCenter } = useRegisterCenter();
-  const { loadedProfileImage, handleProfileImageChange, handleRemove } = useUploadImage();
+  const {
+    loadedProfileImage,
+    handleProfileImageChange,
+    handleRemove,
+    loadedBusinessImage,
+    handleBusinessImageChange,
+  } = useUploadImage();
   const [career, setCareer] = useState([
     {
       startDate: '',
@@ -80,65 +86,6 @@ export default function App() {
       content: '',
     },
   ]);
-
-  // const { createProfile } = useRegisterProfile();
-  // const [addForm, setForm] = useState([
-  //   {
-  //     id: 0,
-  //     label: '경력',
-  //     type: 'career',
-  //     isAdd: false,
-  //     children: [
-  //       {
-  //         innerId: 11,
-  //         startDate: 'YYYY-MM',
-  //         endDate: 'YYYY-MM',
-  //         content: '병원명',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 1,
-  //     label: '학력',
-  //     type: 'school',
-  //     isAdd: false,
-
-  //     children: [
-  //       {
-  //         innerId: 12,
-  //         startDate: 'YYYY-MM',
-  //         endDate: 'YYYY-MM',
-  //         content: '서울대',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 2,
-  //     label: '외국어',
-  //     type: 'lang',
-  //     isAdd: false,
-
-  //     children: [
-  //       {
-  //         startDate: 'YYYY-MM-DD',
-  //         innerId: 13,
-  //         content: '언어',
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 3,
-  //     label: '채널',
-  //     type: 'channel',
-  //     isAdd: false,
-  //     children: [
-  //       {
-  //         innerId: 14,
-  //         content: 'youtube',
-  //       },
-  //     ],
-  //   },
-  // ]);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     alert(JSON.stringify(data));
@@ -189,8 +136,8 @@ export default function App() {
             {toggle ? (
               <CenterForm
                 control={control}
-                loadedProfileImage={loadedProfileImage}
-                handleProfileImageChange={handleProfileImageChange}
+                loadedBusinessImage={loadedBusinessImage}
+                handleBusinessImageChange={handleBusinessImageChange}
                 handleRemove={handleRemove}
               />
             ) : (

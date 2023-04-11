@@ -24,8 +24,8 @@ const style = {
 };
 interface HospitalFormProps {
   control: any;
-  loadedProfileImage: any;
-  handleProfileImageChange: (e: any) => void;
+  loadedBusinessImage: any;
+  handleBusinessImageChange: (e: any) => void;
   handleRemove: () => void;
 }
 const CustomImgWrapper = styled.div`
@@ -90,8 +90,8 @@ const ArrowImg = styled.img`
 
 const CenterForm = ({
   control,
-  loadedProfileImage,
-  handleProfileImageChange,
+  loadedBusinessImage,
+  handleBusinessImageChange,
   handleRemove,
 }: HospitalFormProps) => {
   const { openPostcode, handle, inputRef, setOpenPostcode } = usePostCode();
@@ -211,7 +211,7 @@ const CenterForm = ({
                   type="file" // type="file"
                   hidden // input을 숨기고 다른 스타일링위해
                   onChange={e => {
-                    handleProfileImageChange(e);
+                    handleBusinessImageChange(e);
                   }}
                 />
               </label>
@@ -220,8 +220,8 @@ const CenterForm = ({
         />
         <CustomImgWrapper>
           <label htmlFor="profile-image-input">
-            {loadedProfileImage.imagePreviewUrl ? (
-              <Img alt="" src={loadedProfileImage.imagePreviewUrl} />
+            {loadedBusinessImage.imagePreviewUrl ? (
+              <Img alt="" src={loadedBusinessImage.imagePreviewUrl} />
             ) : (
               <Img alt="default" src={defaultImg} />
             )}

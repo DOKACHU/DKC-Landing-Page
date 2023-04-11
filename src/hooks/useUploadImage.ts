@@ -35,6 +35,7 @@ const useUploadImage = () => {
   };
 
   const [loadedProfileImage, setLoadedProfileImage] = useState<ImageProps>(imageInit);
+  const [loadedBusinessImage, setLoadedBusinessImage] = useState<ImageProps>(imageInit);
 
   // s3 업로드
   // const [uploadFile, { loading }] = useMutation(UploadFileDocument, {
@@ -65,8 +66,27 @@ const useUploadImage = () => {
     }
   };
 
+  const handleBusinessImageChange = async (e: any) => {
+    e.preventDefault();
+
+    const file = e.target.files[0];
+
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setLoadedBusinessImage({
+          ...loadedBusinessImage,
+          imagePreviewUrl: reader.result,
+          imageBlob: file,
+        });
+        e.target.value = '';
+      };
+    }
+  };
+
   const handleRemove = () => {
     setLoadedProfileImage(imageInit);
+    setLoadedBusinessImage(imageInit);
   };
 
   // s3 upload
@@ -76,6 +96,22 @@ const useUploadImage = () => {
     // const result = await uploadFile({ file });
   };
 
-  return { loadedProfileImage, handleProfileImageChange, handleRemove, handleUpload };
+  const handleBusinessUpload = async () => {
+    const file = loadedBusinessImage.imageBlob;
+    console.log('file', file);
+    // const result = await uploadFile({ file });
+  };
+
+  return {
+    loadedProfileImage,
+    handleProfileImageChange,
+    handleUpload,
+
+    loadedBusinessImage,
+    handleBusinessImageChange,
+    handleBusinessUpload,
+
+    handleRemove,
+  };
 };
 export default useUploadImage;
