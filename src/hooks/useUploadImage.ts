@@ -10,16 +10,16 @@ interface ImageProps {
 }
 
 // api
-const UploadFileDocument = gql`
-  mutation fileUpload($file: Upload!) {
-    fileUpload(file: $file) {
-      ETag
-      Location
-      Key
-      Bucket
-    }
-  }
-`;
+// const UploadFileDocument = gql`
+//   mutation fileUpload($file: Upload!) {
+//     fileUpload(file: $file) {
+//       ETag
+//       Location
+//       Key
+//       Bucket
+//     }
+//   }
+// `;
 
 const useUploadImage = () => {
   const imageInit = {
@@ -42,8 +42,7 @@ const useUploadImage = () => {
   //   onCompleted,
   // });
 
-  const [result, uploadFile] = useMutation(UploadFileDocument);
-  console.log(result);
+  // const [result, uploadFile] = useMutation(UploadFileDocument);
 
   const reader = new FileReader();
 

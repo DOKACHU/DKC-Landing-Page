@@ -106,16 +106,20 @@ const PersonalForm = ({
 
     if (name === 'career') {
       const newObj = {
-        startDate: '',
-        endDate: '',
+        startYear: '',
+        startMonth: '',
+        endYear: '',
+        endMonth: '',
         content: '',
       };
       setCareer([...career, newObj]);
     }
     if (name === 'school') {
       const newObj = {
-        startDate: '',
-        endDate: '',
+        startYear: '',
+        startMonth: '',
+        endYear: '',
+        endMonth: '',
         content: '',
       };
       setSchool([...school, newObj]);
@@ -134,7 +138,6 @@ const PersonalForm = ({
     }
   };
 
-  console.log({ channel });
   const addForm = [
     {
       id: 0,
@@ -158,7 +161,15 @@ const PersonalForm = ({
     },
   ];
 
-  //
+  const handleChange = (e: any, index: number) => {
+    const { value, name } = e.target;
+    console.log({ name, value });
+    const newList = career; // <-- newList reference to state
+    career[index][name] = value; // <-- mutation!
+    setCareer(newList);
+    console.log({ career });
+  };
+
   return (
     <>
       {/* 4 */}
@@ -308,6 +319,7 @@ const PersonalForm = ({
               school={school}
               lang={lang}
               channel={channel}
+              onChange={handleChange}
             />
           );
         })}

@@ -26,13 +26,13 @@ const CustomButton = styled.button`
   cursor: pointer;
 `;
 
-const Span = styled.span`
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 21px;
-  color: #000;
-`;
+// const Span = styled.span`
+//   font-style: normal;
+//   font-weight: 500;
+//   font-size: 14px;
+//   line-height: 21px;
+//   color: #000;
+// `;
 
 const Container = styled.div`
   margin-bottom: 20px;
@@ -67,7 +67,17 @@ const Row = styled.div`
   justify-content: flex-start;
 `;
 
-export default function AddForm({ id, label, career, type, onClick, school, lang, channel }: any) {
+export default function AddForm({
+  onChange,
+  id,
+  label,
+  career,
+  type,
+  onClick,
+  school,
+  lang,
+  channel,
+}: any) {
   //   console.log({ children });
 
   const textMap: any = {
@@ -102,37 +112,49 @@ export default function AddForm({ id, label, career, type, onClick, school, lang
           <AddSection key={i}>
             {is ? null : (
               <>
-                {v.startDate === '' ? (
-                  <Row>
-                    <YearInput placeholder="YYYY" type="text" maxLength={4} />
-                    <span>.</span>
-                    <MonthInput placeholder="MM" type="text" maxLength={2} />
-                  </Row>
-                ) : (
-                  <Span>{`${v.startDate}`}</Span>
-                )}
+                <Row>
+                  <YearInput
+                    placeholder="YYYY"
+                    type="text"
+                    maxLength={4}
+                    name="startYear"
+                    onChange={e => onChange(e, i)}
+                  />
+                  <span>.</span>
+                  <MonthInput
+                    placeholder="MM"
+                    type="text"
+                    maxLength={2}
+                    name="startMonth"
+                    onChange={e => onChange(e, i)}
+                  />
+                </Row>
               </>
             )}
 
             {is ? null : (
               <>
-                {v.endDate === '' ? (
-                  <Row>
-                    <YearInput placeholder="YYYY" type="text" maxLength={4} />
-                    <span>.</span>
-                    <MonthInput placeholder="MM" type="text" maxLength={2} />
-                  </Row>
-                ) : (
-                  <Span>{`${v.endDate}`}</Span>
-                )}
+                <Row>
+                  <YearInput
+                    placeholder="YYYY"
+                    name="endYear"
+                    type="text"
+                    maxLength={4}
+                    onChange={e => onChange(e, i)}
+                  />
+                  <span>.</span>
+                  <MonthInput
+                    placeholder="MM"
+                    type="text"
+                    name="endMonth"
+                    maxLength={2}
+                    onChange={e => onChange(e, i)}
+                  />
+                </Row>
               </>
             )}
 
-            {v.content === '' ? (
-              <Input placeholder={placeholderMap[type]} maxLength={10} />
-            ) : (
-              <Span>{`${v.content}`}</Span>
-            )}
+            <Input placeholder={placeholderMap[type]} maxLength={10} />
           </AddSection>
         );
       })}

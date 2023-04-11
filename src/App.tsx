@@ -61,16 +61,20 @@ export default function App() {
   } = useUploadImage();
   const [career, setCareer] = useState([
     {
-      startDate: '',
-      endDate: '',
+      startYear: '',
+      startMonth: '',
+      endYear: '',
+      endMonth: '',
       content: '',
     },
   ]);
 
   const [school, setSchool] = useState([
     {
-      startDate: '',
-      endDate: '',
+      startYear: '',
+      startMonth: '',
+      endYear: '',
+      endMonth: '',
       content: '',
     },
   ]);
