@@ -55,10 +55,29 @@ export default function App() {
   const { loadedProfileImage, handleProfileImageChange, handleRemove } = useUploadImage();
   const [career, setCareer] = useState([
     {
-      innerId: 11,
-      startDate: 'YYYY-MM',
-      endDate: 'YYYY-MM',
-      content: '병원명',
+      startDate: '',
+      endDate: '',
+      content: '',
+    },
+  ]);
+
+  const [school, setSchool] = useState([
+    {
+      startDate: '',
+      endDate: '',
+      content: '',
+    },
+  ]);
+
+  const [lang, setLang] = useState([
+    {
+      content: '',
+    },
+  ]);
+
+  const [channel, setChannel] = useState([
+    {
+      content: '',
     },
   ]);
 
@@ -167,14 +186,18 @@ export default function App() {
         <TextSection toggle={toggle} />
         <Form onSubmit={!toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
           <Grid container spacing={2}>
-            {!toggle ? (
+            {toggle ? (
               <CenterForm control={control} />
             ) : (
               <PersonalForm
+                channel={channel}
+                setChannel={setChannel}
+                lang={lang}
+                setLang={setLang}
                 career={career}
                 setCareer={setCareer}
-                // setForm={setForm}
-                // addForm={addForm}
+                school={school}
+                setSchool={setSchool}
                 control={personalCtrl}
                 loadedProfileImage={loadedProfileImage}
                 handleProfileImageChange={handleProfileImageChange}

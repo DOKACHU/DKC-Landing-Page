@@ -9,8 +9,14 @@ import defaultImg from './default.png';
 import arrow from './arrow.png';
 
 interface PersonalFormProps {
+  channel: any;
+  setChannel: any;
+  lang: any;
+  setLang: any;
   career: any;
   setCareer: any;
+  school: any;
+  setSchool: any;
   control: any;
   loadedProfileImage: any;
   handleProfileImageChange: (e: any) => void;
@@ -81,8 +87,14 @@ const ArrowImg = styled.img`
 `;
 
 const PersonalForm = ({
-  // career,
-  // setCareer,
+  channel,
+  setChannel,
+  lang,
+  setLang,
+  career,
+  setCareer,
+  school,
+  setSchool,
   control,
   loadedProfileImage,
   handleProfileImageChange,
@@ -110,24 +122,59 @@ const PersonalForm = ({
 
   const handleAddClick = (e: any) => {
     e.preventDefault();
-    console.log('work');
+    const { name } = e.target;
+
+    if (name === 'career') {
+      const newObj = {
+        startDate: '',
+        endDate: '',
+        content: '',
+      };
+      setCareer([...career, newObj]);
+    }
+    if (name === 'school') {
+      const newObj = {
+        startDate: '',
+        endDate: '',
+        content: '',
+      };
+      setSchool([...school, newObj]);
+    }
+    if (name === 'lang') {
+      const newObj = {
+        content: '',
+      };
+      setLang([...lang, newObj]);
+    }
+    if (name === 'channel') {
+      const newObj = {
+        content: '',
+      };
+      setChannel([...channel, newObj]);
+    }
   };
+
+  console.log({ channel });
   const addForm = [
     {
       id: 0,
       label: '경력',
+      type: 'career',
     },
     {
       id: 1,
       label: '학력',
+      type: 'school',
     },
     {
       id: 2,
       label: '외국어',
+      type: 'lang',
     },
     {
       id: 3,
       label: '채널',
+      type: 'channel',
     },
   ];
 
@@ -264,7 +311,17 @@ const PersonalForm = ({
 
       <Grid item xs={12}>
         {addForm?.map((item: any, i: number) => {
-          return <AddForm key={`${item}-${i}`} {...item} onClick={handleAddClick} />;
+          return (
+            <AddForm
+              key={`${item}-${i}`}
+              {...item}
+              onClick={handleAddClick}
+              career={career}
+              school={school}
+              lang={lang}
+              channel={channel}
+            />
+          );
         })}
       </Grid>
 

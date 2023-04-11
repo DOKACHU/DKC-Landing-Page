@@ -38,24 +38,51 @@ const Container = styled.div`
   margin-bottom: 20px;
 `;
 
-const Input = styled.input`
-  padding: 12px 16px;
-  border: 1px solid #000;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
-
-  &:hover {
-    border: 1px solid #e4e4e4;
-  }
-
+const YearInput = styled.input`
+  border: none;
+  width: 40px;
   &:focus {
-    background-color: #f4f4f4;
+    outline: none;
   }
 `;
 
-export default function AddForm({ id, label, children, type, onClick }: any) {
+const MonthInput = styled.input`
+  border: none;
+  width: 30px;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Input = styled.input`
+  border: none;
+  /* width: 30px; */
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+
+export default function AddForm({ id, label, career, type, onClick, school, lang, channel }: any) {
   //   console.log({ children });
+
+  const textMap: any = {
+    career: career,
+    school: school,
+    lang: lang,
+    channel: channel,
+  };
+
+  const placeholderMap: any = {
+    career: '병원명',
+    school: '학력',
+    lang: '외국어',
+    channel: '채널',
+  };
 
   return (
     <Container>
@@ -68,12 +95,44 @@ export default function AddForm({ id, label, children, type, onClick }: any) {
       </CustomButton>
 
       {/*  */}
-      {children?.map((v: any, i: number) => {
+      {textMap[type]?.map((v: any, i: number) => {
         const is = ['lang', 'channel'].includes(type);
+
         return (
           <AddSection key={i}>
-            {is ? null : <Span>{`${v.startDate} - ${v.endDate}`}</Span>}
-            {v.content === '' ? <Input /> : <Span>{v.content}</Span>}
+            {is ? null : (
+              <>
+                {v.startDate === '' ? (
+                  <Row>
+                    <YearInput placeholder="YYYY" type="text" maxLength={4} />
+                    <span>.</span>
+                    <MonthInput placeholder="MM" type="text" maxLength={2} />
+                  </Row>
+                ) : (
+                  <Span>{`${v.startDate}`}</Span>
+                )}
+              </>
+            )}
+
+            {is ? null : (
+              <>
+                {v.endDate === '' ? (
+                  <Row>
+                    <YearInput placeholder="YYYY" type="text" maxLength={4} />
+                    <span>.</span>
+                    <MonthInput placeholder="MM" type="text" maxLength={2} />
+                  </Row>
+                ) : (
+                  <Span>{`${v.endDate}`}</Span>
+                )}
+              </>
+            )}
+
+            {v.content === '' ? (
+              <Input placeholder={placeholderMap[type]} maxLength={10} />
+            ) : (
+              <Span>{`${v.content}`}</Span>
+            )}
           </AddSection>
         );
       })}
