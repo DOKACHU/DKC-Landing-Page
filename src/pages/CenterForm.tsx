@@ -8,6 +8,8 @@ import styled from 'styled-components';
 import { Button } from '../components';
 import { usePostCode } from '../hooks';
 import DaumPostcode from 'react-daum-postcode';
+import arrow from './arrow.png';
+
 const style = {
   position: 'absolute' as const,
   top: '50%',
@@ -36,6 +38,35 @@ const Footer = styled(Grid)`
   align-items: center;
 `;
 
+const Block = styled.div`
+  position: relative;
+`;
+const CustomSelect = styled(Select)`
+  .react-select__control {
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 3px;
+  }
+  .react-select__indicator-separator {
+    display: none;
+  }
+  .react-select__indicator {
+    display: none;
+
+    .react-select__dropdown-indicator {
+      /* background-color: #000000; */
+    }
+  }
+  z-index: 9;
+`;
+
+const Img = styled.img`
+  position: absolute;
+  top: 45%;
+  right: 15px;
+  z-index: 10;
+`;
+
 const HospitalForm = ({ control }: HospitalFormProps) => {
   const { openPostcode, handle, inputRef, setOpenPostcode } = usePostCode();
   // const inputRef = useRef<any>(null);
@@ -57,25 +88,32 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
       </Grid>
       {/* 2 지역 */}
       <Grid item xs={12}>
-        <label>지역*</label>
-        <Controller
-          name="location"
-          control={control}
-          defaultValue={{ value: '00', label: '서울' }}
-          render={({ field }) => (
-            <Select
-              {...field}
-              defaultValue={{ value: '00', label: '서울' }}
-              options={[
-                { value: '00', label: '서울' },
-                { value: '01', label: '인천' },
-                { value: '02', label: '대구' },
-                { value: '03', label: '부산' },
-                { value: '04', label: '광주' },
-              ]}
-            />
-          )}
-        />
+        <Grid item xs={6}>
+          <label>지역*</label>
+          <Controller
+            name="location"
+            control={control}
+            defaultValue={{ value: '00', label: '서울' }}
+            render={({ field }) => (
+              <Block>
+                <CustomSelect
+                  {...field}
+                  className="react-select-container"
+                  classNamePrefix="react-select"
+                  defaultValue={{ value: '00', label: '서울' }}
+                  options={[
+                    { value: '00', label: '서울' },
+                    { value: '01', label: '인천' },
+                    { value: '02', label: '대구' },
+                    { value: '03', label: '부산' },
+                    { value: '04', label: '광주' },
+                  ]}
+                />
+                <Img src={arrow} alt="" />
+              </Block>
+            )}
+          />
+        </Grid>
       </Grid>
 
       {/* 3 대표주소 */}
@@ -108,7 +146,7 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
 
       <Grid item xs={6}>
         <Controller
-          name="bizzNumber"
+          name="detailAddress"
           control={control}
           defaultValue={''}
           render={({ field }) => (
@@ -200,7 +238,13 @@ const HospitalForm = ({ control }: HospitalFormProps) => {
         />
       </Grid>
 
-      <Grid item xs={12}>
+      <Grid
+        item
+        xs={12}
+        style={{
+          marginBottom: '20px',
+        }}
+      >
         <Controller
           name="policy"
           control={control}
