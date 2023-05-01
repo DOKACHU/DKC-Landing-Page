@@ -99,7 +99,7 @@ const PersonalForm = ({
   setSchool,
   control,
   loadedProfileImage,
-  handleProfileImageChange,
+  // handleProfileImageChange,
   handleRemove,
 }: PersonalFormProps) => {
   const handleAddClick = (e: any) => {
@@ -172,8 +172,7 @@ const PersonalForm = ({
     console.log({ career });
   };
 
-  const { fileMuitleInput, handleUploadFile, postImages, handleFileClick, handleDeleteImage } =
-    useMultipleUpload();
+  const { handleUploadFile, postImages, handleDeleteImage } = useMultipleUpload();
 
   return (
     <>
