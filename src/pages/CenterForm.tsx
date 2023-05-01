@@ -103,7 +103,6 @@ const CenterForm = ({
 
   const { fileMuitleInput, handleUploadFile, postImages, handleFileClick, handleDeleteImage } =
     useMultipleUpload();
-  console.log({ postImages });
   return (
     <>
       <Grid item xs={12}>

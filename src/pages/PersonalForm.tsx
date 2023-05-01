@@ -7,6 +7,7 @@ import { CustomInput, CustomTextArea, AddForm } from '../components';
 import styled from 'styled-components';
 import defaultImg from './default.png';
 import arrow from './arrow.png';
+import { useMultipleUpload } from '../hooks';
 
 interface PersonalFormProps {
   channel: any;
@@ -171,10 +172,13 @@ const PersonalForm = ({
     console.log({ career });
   };
 
+  const { fileMuitleInput, handleUploadFile, postImages, handleFileClick, handleDeleteImage } =
+    useMultipleUpload();
+
   return (
     <>
       {/* 4 */}
-      <Grid item xs={12}>
+      <Grid item xs={4}>
         <Controller
           name="profileImg"
           control={control}
@@ -186,9 +190,7 @@ const PersonalForm = ({
                 id="profile-image-input" // label htmlFor
                 type="file" // type="file"
                 hidden // input을 숨기고 다른 스타일링위해
-                onChange={e => {
-                  handleProfileImageChange(e);
-                }}
+                onChange={handleUploadFile}
               />
             );
           }}
@@ -206,6 +208,27 @@ const PersonalForm = ({
         <button type="button" onClick={handleRemove}>
           이미지 삭제
         </button>
+      </Grid>
+
+      <Grid item xs={8}>
+        {postImages.map((url, id) => {
+          return (
+            <>
+              <img
+                style={{
+                  width: '100px',
+                  height: '100px',
+                }}
+                alt={url}
+                key={url}
+                src={url}
+              />
+              <button type="button" onClick={() => handleDeleteImage(id)}>
+                x
+              </button>
+            </>
+          );
+        })}
       </Grid>
 
       <Grid item xs={6}>
