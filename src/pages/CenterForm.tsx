@@ -6,7 +6,7 @@ import { Grid, Checkbox, Modal, Box } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 import styled from 'styled-components';
 import { Button } from '../components';
-import { usePostCode } from '../hooks';
+import { usePostCode, useMultipleUpload } from '../hooks';
 import DaumPostcode from 'react-daum-postcode';
 import arrow from './arrow.png';
 import defaultImg from './default.png';
@@ -101,8 +101,63 @@ const CenterForm = ({
   //   inputRef?.current.click();
   // };
 
+  const { fileMuitleInput, handleUploadFile, postImages, handleFileClick, handleDeleteImage } =
+    useMultipleUpload();
+  console.log({ postImages });
   return (
     <>
+      <Grid item xs={12}>
+        <Grid item xs={2}>
+          <Controller
+            name="centerName"
+            control={control}
+            defaultValue=""
+            render={({ field }) => {
+              return (
+                <>
+                  <span>커버 이미지 *</span>
+                  <input
+                    {...field}
+                    ref={fileMuitleInput}
+                    type="file"
+                    onChange={handleUploadFile}
+                    hidden
+                  />
+                  <button type="button" onClick={handleFileClick}>
+                    파일 업로드
+                  </button>
+                </>
+              );
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={10}>
+          {postImages.map((url, id) => {
+            return (
+              <>
+                <img
+                  style={{
+                    width: '100px',
+                    height: '100px',
+                  }}
+                  alt={url}
+                  key={url}
+                  src={url}
+                />
+                <button type="button" onClick={() => handleDeleteImage(id)}>
+                  x
+                </button>
+              </>
+            );
+          })}
+        </Grid>
+
+        {/* <button type="submit" onClick={handleSubmit}>
+          제출하기
+        </button> */}
+      </Grid>
+
       {/* 1 병원이름 */}
       <Grid item xs={12}>
         <Controller

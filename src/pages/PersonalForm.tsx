@@ -59,6 +59,7 @@ const Img = styled.img`
 const Block = styled.div`
   position: relative;
 `;
+
 const CustomSelect = styled(Select)`
   .react-select__control {
     border: 1px solid #000;
