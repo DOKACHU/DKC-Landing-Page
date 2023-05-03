@@ -51,7 +51,6 @@ export default function App() {
   const [toggle, setToggle] = useState(false);
   const { handleSubmit, control } = useForm<IFormInput>();
   const { handleSubmit: personalSubmit, control: personalCtrl } = useForm<PersonalFormInput>();
-  // const { createCenter } = useRegisterCenter();
   const {
     loadedProfileImage,
     handleProfileImageChange,
@@ -59,6 +58,8 @@ export default function App() {
     loadedBusinessImage,
     handleBusinessImageChange,
   } = useUploadImage();
+
+  // const { mutate } = useCreateCenter();
   const [career, setCareer] = useState([
     {
       startYear: '',

@@ -4,7 +4,7 @@ import { useState, useRef } from 'react';
 const usePostCode = () => {
   const [openPostcode, setOpenPostcode] = useState<boolean>(false);
   const inputRef = useRef<any>(null);
-
+  const [address, setAddress] = useState<string>('');
   const handle = {
     // 버튼 클릭 이벤트
     clickButton: () => {
@@ -20,6 +20,7 @@ const usePostCode = () => {
                 주소: ${data.address},
                 우편번호: ${data.zonecode}
             `);
+      setAddress(data.address);
       setOpenPostcode(false);
     },
   };
@@ -28,6 +29,7 @@ const usePostCode = () => {
     handle,
     openPostcode,
     setOpenPostcode,
+    address,
   };
 };
 

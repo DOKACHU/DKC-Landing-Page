@@ -4,17 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CssBaseline } from '@mui/material';
-import { client } from './apollo';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
-import { ApolloProvider } from '@apollo/client';
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <CssBaseline />
-    <ApolloProvider client={client}>
+    <QueryClientProvider client={queryClient}>
       <App />
-    </ApolloProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
 );
 

@@ -52,7 +52,7 @@ interface CustomInputProps {
   ref?: any;
   label?: string;
   value: string | number;
-  onChange: (...event: any[]) => void;
+  onChange: () => void;
   onClick?: () => void;
   type?: string;
   placeholder?: string;

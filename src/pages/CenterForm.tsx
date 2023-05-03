@@ -94,12 +94,7 @@ const CenterForm = ({
   handleBusinessImageChange,
   handleRemove,
 }: HospitalFormProps) => {
-  const { openPostcode, handle, inputRef, setOpenPostcode } = usePostCode();
-  // const inputRef = useRef<any>(null);
-
-  // const handleClick = () => {
-  //   inputRef?.current.click();
-  // };
+  const { openPostcode, handle, inputRef, setOpenPostcode, address } = usePostCode();
 
   const { fileMuitleInput, handleUploadFile, postImages, handleFileClick, handleDeleteImage } =
     useMultipleUpload();
@@ -108,9 +103,9 @@ const CenterForm = ({
       <Grid item xs={12}>
         <Grid item xs={2}>
           <Controller
-            name="centerName"
+            name="coverImage"
             control={control}
-            defaultValue=""
+            defaultValue={''}
             render={({ field }) => {
               return (
                 <>
@@ -157,7 +152,6 @@ const CenterForm = ({
         </button> */}
       </Grid>
 
-      {/* 1 병원이름 */}
       <Grid item xs={12}>
         <Controller
           name="centerName"
@@ -207,6 +201,7 @@ const CenterForm = ({
           render={({ field }) => (
             <CustomInput
               {...field}
+              value={address}
               placeholder="대표 주소 입력"
               label="대표주소"
               ref={inputRef}
