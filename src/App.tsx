@@ -93,7 +93,11 @@ export default function App() {
 
   const [license, setLicense] = useState([
     {
-      content: '',
+      licenseName: '',
+      licenseNumber: '',
+      registerYear: '',
+      registerMonth: '',
+      registerDay: '',
     },
   ]);
 
@@ -104,7 +108,7 @@ export default function App() {
   ]);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
-    const { postImages, test } = multipleProps;
+    const { postImages, rawFiles } = multipleProps;
     const { tags } = tagProps;
     console.log({ data, postImages, loadedBusinessImage, tags });
     const {
@@ -121,8 +125,8 @@ export default function App() {
     } = data;
 
     const formData = new FormData(); // 새로운 폼 객체 생성
-    for (let i = 0; i < test.length; i++) {
-      formData.append('centerImages', test[i]);
+    for (let i = 0; i < rawFiles.length; i++) {
+      formData.append('centerImages', rawFiles[i]);
     }
 
     formData.append('registration', loadedBusinessImage.imageBlob); // <input name="item" value="hi"> 와 같다.
@@ -170,7 +174,9 @@ export default function App() {
 
   const onPersonalSubmit: SubmitHandler<PersonalFormInput> = async data => {
     // alert(JSON.stringify(data));
-    console.log({ data });
+    const { rawFiles } = multipleProps;
+
+    console.log({ data, rawFiles, career, school, license, channel });
 
     // TODO: UPLOAD TEST
     // await handleUpload();
@@ -197,9 +203,9 @@ export default function App() {
           <button onClick={handleToggle}> {!toggle ? '개인' : '병원'}변경 </button>
         </Test>
         <TextSection toggle={toggle} />
-        <Form onSubmit={!toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
+        <Form onSubmit={toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
           <Grid container spacing={2}>
-            {!toggle ? (
+            {toggle ? (
               <CenterForm
                 {...postProps}
                 {...multipleProps}

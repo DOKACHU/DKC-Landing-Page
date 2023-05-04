@@ -4,7 +4,7 @@ import React, { useState, useRef } from 'react';
 export const useMultipleUpload = () => {
   const fileMuitleInput = useRef<any>(null);
   const [postImages, setPostImages] = useState([]);
-  const [test, setTest] = useState<any>([]);
+  const [rawFiles, setRawFiles] = useState<any>([]);
 
   const handleDeleteImage = (id: number) => {
     setPostImages(postImages.filter((_, index) => index !== id));
@@ -17,14 +17,14 @@ export const useMultipleUpload = () => {
   const handleUploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const imageLists = e.target.files;
-      console.log(imageLists[0] as any);
+      // console.log(imageLists[0] as any);
       let imageUrlLists = [...postImages];
 
       if (imageLists) {
         for (let i = 0; i < imageLists.length; i++) {
           const currentImageUrl = URL.createObjectURL(imageLists[i]) as any;
           imageUrlLists.push(currentImageUrl as never);
-          setTest([...test, imageLists[i]]);
+          setRawFiles([...rawFiles, imageLists[i]]);
         }
 
         if (imageUrlLists.length > 5) {
@@ -36,10 +36,8 @@ export const useMultipleUpload = () => {
     }
   };
 
-  console.log({ test });
-
   return {
-    test,
+    rawFiles,
     handleFileClick,
     fileMuitleInput,
     postImages,

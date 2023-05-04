@@ -77,6 +77,9 @@ export default function AddForm({
   school,
   license,
   channel,
+  onLicenseChange,
+  onSchoolChange,
+  onChannelChange,
 }: any) {
   //   console.log({ children });
 
@@ -118,7 +121,7 @@ export default function AddForm({
                     type="text"
                     maxLength={4}
                     name="startYear"
-                    onChange={e => onChange(e, i)}
+                    onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
                   />
                   <span>.</span>
                   <MonthInput
@@ -126,7 +129,7 @@ export default function AddForm({
                     type="text"
                     maxLength={2}
                     name="startMonth"
-                    onChange={e => onChange(e, i)}
+                    onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
                   />
                 </Row>
               </>
@@ -140,7 +143,7 @@ export default function AddForm({
                     name="endYear"
                     type="text"
                     maxLength={4}
-                    onChange={e => onChange(e, i)}
+                    onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
                   />
                   <span>.</span>
                   <MonthInput
@@ -148,34 +151,71 @@ export default function AddForm({
                     type="text"
                     name="endMonth"
                     maxLength={2}
-                    onChange={e => onChange(e, i)}
+                    onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
                   />
                 </Row>
               </>
             )}
 
-            {type === 'license' ? (
+            {isChannel ? null : (
+              <>
+                <Input
+                  placeholder={placeholderMap[type]}
+                  maxLength={10}
+                  name="content"
+                  onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
+                />
+              </>
+            )}
+
+            {type === 'license' && (
               <div>
-                <Input placeholder={'자격증 이름'} maxLength={10} />
-                <Input placeholder={'자격증 번호'} maxLength={10} />
+                <Input
+                  placeholder={'자격증 이름'}
+                  name="licenseName"
+                  maxLength={10}
+                  onChange={e => onLicenseChange(e, i)}
+                />
+                <Input
+                  placeholder={'자격증 번호'}
+                  name="licenseNumber"
+                  maxLength={10}
+                  onChange={e => onLicenseChange(e, i)}
+                />
                 <YearInput
                   placeholder="YYYY"
-                  name="endYear"
+                  name="registerYear"
                   type="text"
                   maxLength={4}
-                  onChange={e => onChange(e, i)}
+                  onChange={e => onLicenseChange(e, i)}
                 />
                 <span>.</span>
                 <MonthInput
                   placeholder="MM"
                   type="text"
-                  name="endMonth"
+                  name="registerMonth"
                   maxLength={2}
-                  onChange={e => onChange(e, i)}
+                  onChange={e => onLicenseChange(e, i)}
+                />
+                <MonthInput
+                  placeholder="DD"
+                  type="text"
+                  name="registerDay"
+                  maxLength={2}
+                  onChange={e => onLicenseChange(e, i)}
                 />
               </div>
-            ) : (
-              <Input placeholder={placeholderMap[type]} maxLength={10} />
+            )}
+
+            {type === 'channel' && (
+              <>
+                <Input
+                  placeholder={placeholderMap[type]}
+                  maxLength={10}
+                  name="content"
+                  onChange={e => onChannelChange(e, i)}
+                />
+              </>
             )}
           </AddSection>
         );

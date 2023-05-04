@@ -99,10 +99,14 @@ const PersonalForm = ({
   school,
   setSchool,
   control,
-  loadedProfileImage,
+  fileMuitleInput,
+  handleFileClick,
   handleUploadFile,
   postImages,
   handleDeleteImage,
+  handleRemove,
+  loadedProfileImage,
+  handleProfileImageChange,
 }: any) => {
   const handleAddClick = (e: any) => {
     e.preventDefault();
@@ -167,46 +171,59 @@ const PersonalForm = ({
 
   const handleChange = (e: any, index: number) => {
     const { value, name } = e.target;
-    console.log({ name, value });
     const newList = career;
     career[index][name] = value;
     setCareer(newList);
     console.log({ career });
   };
 
-  // const { handleUploadFile, postImages, handleDeleteImage } = useMultipleUpload();
+  const handleLicenseChange = (e: any, index: number) => {
+    const { value, name } = e.target;
+    const newList = license;
+    license[index][name] = value;
+    setLicense(newList);
+  };
+
+  const handleSchoolChange = (e: any, index: number) => {
+    const { value, name } = e.target;
+    const newList = school;
+    school[index][name] = value;
+    setSchool(newList);
+  };
+
+  const handleChannelChange = (e: any, index: number) => {
+    const { value, name } = e.target;
+    const newList = channel;
+    channel[index][name] = value;
+    setChannel(newList);
+  };
 
   return (
     <>
       {/* 4 */}
       <Grid item xs={4}>
-        <label>*프로필 이미지 (최대 5개)</label>
         <Controller
-          name="profileImg"
+          name="coverImage"
           control={control}
+          defaultValue={''}
           render={({ field }) => {
             return (
-              <input
-                {...field}
-                accept="image/*"
-                id="profile-image-input" // label htmlFor
-                type="file" // type="file"
-                hidden // input을 숨기고 다른 스타일링위해
-                onChange={handleUploadFile}
-              />
+              <>
+                <span>*프로필 이미지 (최대 5개)</span>
+                <input
+                  {...field}
+                  ref={fileMuitleInput}
+                  type="file"
+                  onChange={handleUploadFile}
+                  hidden
+                />
+                <button type="button" onClick={handleFileClick}>
+                  파일 업로드
+                </button>
+              </>
             );
           }}
         />
-
-        <CustomImgWrapper>
-          <label htmlFor="profile-image-input">
-            {loadedProfileImage.imagePreviewUrl ? (
-              <Img alt="" src={loadedProfileImage.imagePreviewUrl} />
-            ) : (
-              <Img alt="default" src={defaultImg} />
-            )}
-          </label>
-        </CustomImgWrapper>
       </Grid>
 
       <Grid item xs={8}>
@@ -330,7 +347,41 @@ const PersonalForm = ({
       </Grid>
 
       {/* Add Form */}
-
+      <Grid item xs={6}>
+        <Controller
+          name="licenceImg"
+          control={control}
+          render={({ field }) => {
+            return (
+              <label>
+                자격증 이미지 업로드
+                <input
+                  {...field}
+                  accept="image/*"
+                  id="profile-image-input" // label htmlFor
+                  type="file" // type="file"
+                  hidden // input을 숨기고 다른 스타일링위해
+                  onChange={e => {
+                    handleProfileImageChange(e);
+                  }}
+                />
+              </label>
+            );
+          }}
+        />
+        <CustomImgWrapper>
+          <label htmlFor="profile-image-input">
+            {loadedProfileImage?.imagePreviewUrl ? (
+              <Img alt="" src={loadedProfileImage?.imagePreviewUrl} />
+            ) : (
+              <Img alt="default" src={defaultImg} />
+            )}
+          </label>
+        </CustomImgWrapper>
+        <button type="button" onClick={handleRemove}>
+          이미지 삭제
+        </button>
+      </Grid>
       <Grid item xs={12}>
         {addForm?.map((item: any, i: number) => {
           return (
@@ -343,6 +394,9 @@ const PersonalForm = ({
               license={license}
               channel={channel}
               onChange={handleChange}
+              onLicenseChange={handleLicenseChange}
+              onChannelChange={handleChannelChange}
+              onSchoolChange={handleSchoolChange}
             />
           );
         })}
