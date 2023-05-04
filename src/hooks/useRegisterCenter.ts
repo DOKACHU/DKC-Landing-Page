@@ -15,13 +15,6 @@ const useRegisterCenter = () => {
     }
   };
 
-  // const handleTags = (e: any) => {
-  //   const { value } = e.target;
-  //   if (e.key === 'Enter') {
-  //     setTags([...tags, value]);
-  //   }
-  // };
-
   return { tags, tagsRef, handleClick };
 };
 

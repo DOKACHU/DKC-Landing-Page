@@ -75,7 +75,7 @@ export default function AddForm({
   type,
   onClick,
   school,
-  lang,
+  license,
   channel,
 }: any) {
   //   console.log({ children });
@@ -83,14 +83,14 @@ export default function AddForm({
   const textMap: any = {
     career: career,
     school: school,
-    lang: lang,
+    license: license,
     channel: channel,
   };
 
   const placeholderMap: any = {
     career: '병원명',
     school: '학력',
-    lang: '외국어',
+    license: '자격증',
     channel: '채널',
   };
 
@@ -106,11 +106,11 @@ export default function AddForm({
 
       {/*  */}
       {textMap[type]?.map((v: any, i: number) => {
-        const is = ['lang', 'channel'].includes(type);
+        const isChannel = ['license', 'channel'].includes(type);
 
         return (
           <AddSection key={i}>
-            {is ? null : (
+            {isChannel ? null : (
               <>
                 <Row>
                   <YearInput
@@ -132,7 +132,7 @@ export default function AddForm({
               </>
             )}
 
-            {is ? null : (
+            {isChannel ? null : (
               <>
                 <Row>
                   <YearInput
@@ -154,7 +154,29 @@ export default function AddForm({
               </>
             )}
 
-            <Input placeholder={placeholderMap[type]} maxLength={10} />
+            {type === 'license' ? (
+              <div>
+                <Input placeholder={'자격증 이름'} maxLength={10} />
+                <Input placeholder={'자격증 번호'} maxLength={10} />
+                <YearInput
+                  placeholder="YYYY"
+                  name="endYear"
+                  type="text"
+                  maxLength={4}
+                  onChange={e => onChange(e, i)}
+                />
+                <span>.</span>
+                <MonthInput
+                  placeholder="MM"
+                  type="text"
+                  name="endMonth"
+                  maxLength={2}
+                  onChange={e => onChange(e, i)}
+                />
+              </div>
+            ) : (
+              <Input placeholder={placeholderMap[type]} maxLength={10} />
+            )}
           </AddSection>
         );
       })}

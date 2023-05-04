@@ -56,6 +56,9 @@ interface CustomInputProps {
   onClick?: () => void;
   type?: string;
   placeholder?: string;
+  tagsRef?: any;
+  handleClick?: () => void;
+  tags?: any;
 }
 
 export default function CustomInput({
@@ -65,9 +68,12 @@ export default function CustomInput({
   onClick,
   label,
   placeholder,
+  tagsRef,
+  handleClick,
+  tags,
   ...props
 }: CustomInputProps) {
-  const { tagsRef, handleClick, tags } = useRegisterCenter();
+  // const { tagsRef, handleClick, tags } = useRegisterCenter();
 
   return (
     <Wrapper>

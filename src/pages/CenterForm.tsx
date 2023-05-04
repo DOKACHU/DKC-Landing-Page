@@ -6,7 +6,7 @@ import { Grid, Checkbox, Modal, Box } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 import styled from 'styled-components';
 import { Button } from '../components';
-import { usePostCode, useMultipleUpload } from '../hooks';
+import { usePostCode } from '../hooks';
 import DaumPostcode from 'react-daum-postcode';
 import arrow from './arrow.png';
 import defaultImg from './default.png';
@@ -89,15 +89,24 @@ const ArrowImg = styled.img`
 `;
 
 const CenterForm = ({
+  tagsRef,
+  handleClick,
+  tags,
+  fileMuitleInput,
+  handleUploadFile,
+  postImages,
+  handleFileClick,
+  handleDeleteImage,
   control,
   loadedBusinessImage,
   handleBusinessImageChange,
   handleRemove,
-}: HospitalFormProps) => {
-  const { openPostcode, handle, inputRef, setOpenPostcode, address } = usePostCode();
-
-  const { fileMuitleInput, handleUploadFile, postImages, handleFileClick, handleDeleteImage } =
-    useMultipleUpload();
+  openPostcode,
+  handle,
+  inputRef,
+  setOpenPostcode,
+  address,
+}: any) => {
   return (
     <>
       <Grid item xs={12}>
@@ -127,7 +136,7 @@ const CenterForm = ({
         </Grid>
 
         <Grid item xs={10}>
-          {postImages.map((url, id) => {
+          {postImages.map((url: string, id: number) => {
             return (
               <>
                 <img
@@ -243,7 +252,7 @@ const CenterForm = ({
         <Controller
           name="bizzNumber"
           control={control}
-          // defaultValue={0}
+          defaultValue={''}
           render={({ field }) => (
             <CustomInput {...field} label="사업자 등록번호" placeholder="‘-’ 제외 10자리" />
           )}
@@ -372,6 +381,9 @@ const CenterForm = ({
             <CustomInput
               {...field}
               type="tags"
+              tagsRef={tagsRef}
+              handleClick={handleClick}
+              tags={tags}
               placeholder="텍스트만 입력 가능합니다."
               label="병원 검색 키워드 (키워드는 최대 3개가지 입력 가능합니다.)"
             />

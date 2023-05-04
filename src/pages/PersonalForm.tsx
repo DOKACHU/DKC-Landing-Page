@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from '../components';
 import Select from 'react-select';
@@ -12,8 +13,8 @@ import { useMultipleUpload } from '../hooks';
 interface PersonalFormProps {
   channel: any;
   setChannel: any;
-  lang: any;
-  setLang: any;
+  license: any;
+  setLicense: any;
   career: any;
   setCareer: any;
   school: any;
@@ -91,17 +92,18 @@ const ArrowImg = styled.img`
 const PersonalForm = ({
   channel,
   setChannel,
-  lang,
-  setLang,
+  license,
+  setLicense,
   career,
   setCareer,
   school,
   setSchool,
   control,
   loadedProfileImage,
-  // handleProfileImageChange,
-  handleRemove,
-}: PersonalFormProps) => {
+  handleUploadFile,
+  postImages,
+  handleDeleteImage,
+}: any) => {
   const handleAddClick = (e: any) => {
     e.preventDefault();
     const { name } = e.target;
@@ -126,11 +128,11 @@ const PersonalForm = ({
       };
       setSchool([...school, newObj]);
     }
-    if (name === 'lang') {
+    if (name === 'license') {
       const newObj = {
         content: '',
       };
-      setLang([...lang, newObj]);
+      setLicense([...license, newObj]);
     }
     if (name === 'channel') {
       const newObj = {
@@ -153,8 +155,8 @@ const PersonalForm = ({
     },
     {
       id: 2,
-      label: '외국어',
-      type: 'lang',
+      label: '자격증',
+      type: 'license',
     },
     {
       id: 3,
@@ -166,18 +168,19 @@ const PersonalForm = ({
   const handleChange = (e: any, index: number) => {
     const { value, name } = e.target;
     console.log({ name, value });
-    const newList = career; // <-- newList reference to state
-    career[index][name] = value; // <-- mutation!
+    const newList = career;
+    career[index][name] = value;
     setCareer(newList);
     console.log({ career });
   };
 
-  const { handleUploadFile, postImages, handleDeleteImage } = useMultipleUpload();
+  // const { handleUploadFile, postImages, handleDeleteImage } = useMultipleUpload();
 
   return (
     <>
       {/* 4 */}
       <Grid item xs={4}>
+        <label>*프로필 이미지 (최대 5개)</label>
         <Controller
           name="profileImg"
           control={control}
@@ -204,13 +207,10 @@ const PersonalForm = ({
             )}
           </label>
         </CustomImgWrapper>
-        <button type="button" onClick={handleRemove}>
-          이미지 삭제
-        </button>
       </Grid>
 
       <Grid item xs={8}>
-        {postImages.map((url, id) => {
+        {postImages.map((url: string, id: number) => {
           return (
             <>
               <img
@@ -340,7 +340,7 @@ const PersonalForm = ({
               onClick={handleAddClick}
               career={career}
               school={school}
-              lang={lang}
+              license={license}
               channel={channel}
               onChange={handleChange}
             />
