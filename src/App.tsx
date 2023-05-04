@@ -12,6 +12,7 @@ import {
   useCreateCenter,
   useRegisterCenter,
   usePostCode,
+  useCreatePro,
 } from './hooks';
 
 interface IFormInput {
@@ -70,7 +71,9 @@ export default function App() {
     handleBusinessImageChange,
   } = useUploadImage();
 
-  const { mutate } = useCreateCenter();
+  const { mutate: createCenter } = useCreateCenter();
+  const { mutate: createPro } = useCreatePro();
+
   const [career, setCareer] = useState([
     {
       startYear: '',
@@ -146,9 +149,8 @@ export default function App() {
     for (let i = 0; i < tags.length; i++) {
       formData.append(`tags[${i}]`, tags[i]);
     }
-    console.log({ formData });
 
-    mutate(formData, {
+    createCenter(formData, {
       onError: e => {
         console.log({ e });
       },
@@ -156,40 +158,62 @@ export default function App() {
         console.log({ res });
       },
     });
-    // alert(JSON.stringify(data));
-    // createCenter({
-    //   variables: {
-    //     centerName: data.centerName,
-    //     centerLocation: data.location?.value,
-    //     centerAddress: data.address,
-    //     centerBizzNumber: data.bizzNumber,
-    //     centerSubject: data.subject,
-    //     centerProCount: Number(data.proCount),
-    //     centerDescription: data.desc,
-    //     centerPhone: data.phoneNumber,
-    //     centerEmail: data.email,
-    //   },
-    // });
   };
 
   const onPersonalSubmit: SubmitHandler<PersonalFormInput> = async data => {
     // alert(JSON.stringify(data));
     const { rawFiles } = multipleProps;
+    const { name, location, major, info, sex } = data;
+    console.log({ data, rawFiles, loadedProfileImage, career, school, license, channel });
 
-    console.log({ data, rawFiles, career, school, license, channel });
+    const formData = new FormData(); // 새로운 폼 객체 생성
+    for (let i = 0; i < rawFiles.length; i++) {
+      formData.append('proImages', rawFiles[i]);
+    }
+    formData.append('licenseImage', loadedProfileImage.imageBlob); // <input name="item" value="hi"> 와 같다.
+    formData.append('proName', name);
+    formData.append('gender', sex.label);
 
-    // TODO: UPLOAD TEST
-    // await handleUpload();
-    // createProfile({
-    //   variables: {
-    //     proImage: loadedProfileImage.imagePreviewUrl,
-    //     proName: data.name,
-    //     proSex: data.sex?.value,
-    //     proLocation: data.location?.value,
-    //     proMajor: data.major?.value,
-    //     proInfo: data.info,
-    //   },
-    // });
+    formData.append('city', location.label);
+    formData.append('therapyCategory', major.label);
+    formData.append('description', info);
+
+    for (let i = 0; i < career.length; i++) {
+      formData.append(`careers[${i}][centerName]`, career[i].content);
+      formData.append(`careers[${i}][startDate]`, `${career[i].startYear}-${career[i].startMonth}`);
+      formData.append(`careers[${i}][endDate]`, `${career[i].endYear}-${career[i].endMonth}`);
+    }
+
+    for (let i = 0; i < school.length; i++) {
+      formData.append(`educations[${i}][schoolName]`, school[i].content);
+      formData.append(
+        `educations[${i}][startDate]`,
+        `${school[i].startYear}-${career[i].startMonth}`,
+      );
+      formData.append(`educations[${i}][endDate]`, `${school[i].endYear}-${career[i].endMonth}`);
+    }
+
+    for (let i = 0; i < license.length; i++) {
+      formData.append(`licenses[${i}][licenseName]`, license[i].licenseName);
+      formData.append(`licenses[${i}][licenseNumber]`, license[i].licenseNumber);
+      formData.append(
+        `licenses[${i}][issueDate]`,
+        `${license[i].registerYear}-${license[i].registerMonth}`,
+      );
+    }
+
+    for (let i = 0; i < channel.length; i++) {
+      formData.append(`channels[${i}]`, channel[i].content);
+    }
+
+    createPro(formData, {
+      onError: e => {
+        console.log({ e });
+      },
+      onSuccess: res => {
+        console.log({ res });
+      },
+    });
   };
 
   const handleToggle = () => {

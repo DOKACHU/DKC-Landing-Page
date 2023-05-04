@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styled, { css } from 'styled-components';
 import { FormGroup, Chip, Stack } from '@mui/material';
-import { useRegisterCenter } from '../hooks';
 
 const Wrapper = styled.div`
   /* border: 1px solid green; */
@@ -59,6 +58,9 @@ interface CustomInputProps {
   tagsRef?: any;
   handleClick?: () => void;
   tags?: any;
+  pattern?: any;
+  title?: string;
+  maxLength?: number;
 }
 
 export default function CustomInput({
@@ -71,6 +73,9 @@ export default function CustomInput({
   tagsRef,
   handleClick,
   tags,
+  pattern,
+  title,
+  maxLength,
   ...props
 }: CustomInputProps) {
   // const { tagsRef, handleClick, tags } = useRegisterCenter();
@@ -107,7 +112,16 @@ export default function CustomInput({
           </Stack>
         </FormGroup>
       ) : (
-        <Input ref={ref} value={value} onClick={onClick} {...props} placeholder={placeholder} />
+        <Input
+          ref={ref}
+          value={value}
+          onClick={onClick}
+          {...props}
+          placeholder={placeholder}
+          pattern={pattern}
+          title={title}
+          maxLength={maxLength}
+        />
       )}
     </Wrapper>
   );

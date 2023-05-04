@@ -6,7 +6,6 @@ import { Grid, Checkbox, Modal, Box } from '@mui/material';
 import { CustomInput, CustomTextArea } from '../components';
 import styled from 'styled-components';
 import { Button } from '../components';
-import { usePostCode } from '../hooks';
 import DaumPostcode from 'react-daum-postcode';
 import arrow from './arrow.png';
 import defaultImg from './default.png';
@@ -22,12 +21,12 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-interface HospitalFormProps {
-  control: any;
-  loadedBusinessImage: any;
-  handleBusinessImageChange: (e: any) => void;
-  handleRemove: () => void;
-}
+// interface HospitalFormProps {
+//   control: any;
+//   loadedBusinessImage: any;
+//   handleBusinessImageChange: (e: any) => void;
+//   handleRemove: () => void;
+// }
 const CustomImgWrapper = styled.div`
   border: 1px solid #f4f4f4;
   border-radius: 16px;

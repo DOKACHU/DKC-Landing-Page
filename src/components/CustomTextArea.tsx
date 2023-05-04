@@ -34,18 +34,20 @@ interface CustomTextAreaProps {
   value: string;
   placeholder?: string;
   onChange: (...event: any[]) => void;
+  maxLength?: number;
 }
 
 export default function CustomTextArea({
   value,
   label,
   placeholder,
+  maxLength,
   ...props
 }: CustomTextAreaProps) {
   return (
     <Wrapper>
       <Span>{label}*</Span>
-      <TextArea placeholder={placeholder} rows={8} value={value} {...props} />
+      <TextArea placeholder={placeholder} rows={8} value={value} maxLength={maxLength} {...props} />
     </Wrapper>
   );
 }

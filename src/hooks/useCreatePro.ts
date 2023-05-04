@@ -2,8 +2,8 @@
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 
-const postCenterAPI = async (Body: any) => {
-  const URL = `https://api-dev.mnz-ai.com/entry/center`;
+const postProAPI = async (Body: any) => {
+  const URL = `https://api-dev.mnz-ai.com/entry/pro`;
   return await axios.post(URL, Body, {
     headers: {
       'Content-Type': `multipart/form-data`,
@@ -11,9 +11,9 @@ const postCenterAPI = async (Body: any) => {
   });
 };
 
-export default function useCreateCenter() {
+export default function useCreatePro() {
   return useMutation({
-    mutationFn: (body: any) => postCenterAPI(body),
+    mutationFn: (body: any) => postProAPI(body),
     // onSuccess: async () => {
     //   console.log("I'm first!");
     // },

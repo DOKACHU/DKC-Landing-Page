@@ -197,13 +197,13 @@ export default function AddForm({
                   maxLength={2}
                   onChange={e => onLicenseChange(e, i)}
                 />
-                <MonthInput
+                {/* <MonthInput
                   placeholder="DD"
                   type="text"
                   name="registerDay"
                   maxLength={2}
                   onChange={e => onLicenseChange(e, i)}
-                />
+                /> */}
               </div>
             )}
 

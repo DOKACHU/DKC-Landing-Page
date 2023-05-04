@@ -8,22 +8,22 @@ import { CustomInput, CustomTextArea, AddForm } from '../components';
 import styled from 'styled-components';
 import defaultImg from './default.png';
 import arrow from './arrow.png';
-import { useMultipleUpload } from '../hooks';
+// import { nameReg } from '../utils';
 
-interface PersonalFormProps {
-  channel: any;
-  setChannel: any;
-  license: any;
-  setLicense: any;
-  career: any;
-  setCareer: any;
-  school: any;
-  setSchool: any;
-  control: any;
-  loadedProfileImage: any;
-  handleProfileImageChange: (e: any) => void;
-  handleRemove: () => void;
-}
+// interface PersonalFormProps {
+//   channel: any;
+//   setChannel: any;
+//   license: any;
+//   setLicense: any;
+//   career: any;
+//   setCareer: any;
+//   school: any;
+//   setSchool: any;
+//   control: any;
+//   loadedProfileImage: any;
+//   handleProfileImageChange: (e: any) => void;
+//   handleRemove: () => void;
+// }
 const Footer = styled(Grid)`
   border: 1px solid #e5e5e5;
   position: fixed;
@@ -253,7 +253,14 @@ const PersonalForm = ({
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <CustomInput {...field} label="이름" placeholder="이름을 입력해주세요." />
+            <CustomInput
+              {...field}
+              label="이름"
+              placeholder="이름을 입력해주세요."
+              // pattern={nameReg}
+              // title="이름을 명확하게 넣어주세요."
+              maxLength={10}
+            />
           )}
         />
       </Grid>
@@ -341,6 +348,7 @@ const PersonalForm = ({
               {...field}
               label="간단 소개글 (3000자 이내)"
               placeholder="간단한 본인 소개를 작성 해주세요."
+              maxLength={3000}
             />
           )}
         />
