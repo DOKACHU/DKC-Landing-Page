@@ -156,6 +156,7 @@ export default function App() {
       },
       onSuccess: res => {
         console.log({ res });
+        alert('센터 입점 양식 등록 완료 ');
       },
     });
   };
@@ -212,6 +213,7 @@ export default function App() {
       },
       onSuccess: res => {
         console.log({ res });
+        alert('프로 입점 양식 등록 완료 ');
       },
     });
   };
