@@ -8,22 +8,7 @@ import { CustomInput, CustomTextArea, AddForm } from '../components';
 import styled from 'styled-components';
 import defaultImg from './default.png';
 import arrow from './arrow.png';
-// import { nameReg } from '../utils';
 
-// interface PersonalFormProps {
-//   channel: any;
-//   setChannel: any;
-//   license: any;
-//   setLicense: any;
-//   career: any;
-//   setCareer: any;
-//   school: any;
-//   setSchool: any;
-//   control: any;
-//   loadedProfileImage: any;
-//   handleProfileImageChange: (e: any) => void;
-//   handleRemove: () => void;
-// }
 const Footer = styled(Grid)`
   border: 1px solid #e5e5e5;
   position: fixed;
@@ -46,6 +31,7 @@ const CustomImgWrapper = styled.div`
   border-radius: 16px;
   width: 240px;
   height: 240px;
+  background-color: lightgray;
 
   &:hover {
     filter: brightness(90%);
@@ -53,9 +39,11 @@ const CustomImgWrapper = styled.div`
 `;
 
 const Img = styled.img`
+  /* position: relative; */
   width: 100%;
   height: 100%;
   border-radius: 16px;
+  object-fit: contain;
 `;
 
 const Block = styled.div`
@@ -201,7 +189,7 @@ const PersonalForm = ({
   return (
     <>
       {/* 4 */}
-      <Grid item xs={4}>
+      <Grid item xs={12}>
         <Controller
           name="coverImage"
           control={control}
@@ -210,30 +198,35 @@ const PersonalForm = ({
             return (
               <>
                 <span>*프로필 이미지 (최대 5개)</span>
-                <input
-                  {...field}
-                  ref={fileMuitleInput}
-                  type="file"
-                  onChange={handleUploadFile}
-                  hidden
-                />
-                <button type="button" onClick={handleFileClick}>
-                  파일 업로드
-                </button>
+                <div>
+                  <input
+                    {...field}
+                    ref={fileMuitleInput}
+                    type="file"
+                    onChange={handleUploadFile}
+                    hidden
+                  />
+                  <button type="button" onClick={handleFileClick}>
+                    파일 업로드
+                  </button>
+                </div>
               </>
             );
           }}
         />
       </Grid>
 
-      <Grid item xs={8}>
+      <Grid item xs={12}>
         {postImages.map((url: string, id: number) => {
           return (
             <>
               <img
                 style={{
-                  width: '100px',
-                  height: '100px',
+                  width: '140px',
+                  height: '140px',
+                  objectFit: 'contain',
+                  background: 'lightgray',
+                  borderRadius: '8px',
                 }}
                 alt={url}
                 key={url}
@@ -257,8 +250,6 @@ const PersonalForm = ({
               {...field}
               label="이름"
               placeholder="이름을 입력해주세요."
-              // pattern={nameReg}
-              // title="이름을 명확하게 넣어주세요."
               maxLength={10}
             />
           )}
@@ -361,34 +352,47 @@ const PersonalForm = ({
           control={control}
           render={({ field }) => {
             return (
-              <label>
-                자격증 이미지 업로드
-                <input
-                  {...field}
-                  accept="image/*"
-                  id="profile-image-input" // label htmlFor
-                  type="file" // type="file"
-                  hidden // input을 숨기고 다른 스타일링위해
-                  onChange={e => {
-                    handleProfileImageChange(e);
-                  }}
-                />
-              </label>
+              <>
+                <label>* 자격증 이미지 업로드 </label>
+                <div>
+                  <input
+                    {...field}
+                    accept="image/*"
+                    id="profile-image-input" // label htmlFor
+                    type="file" // type="file"
+                    hidden // input을 숨기고 다른 스타일링위해
+                    onChange={e => {
+                      handleProfileImageChange(e);
+                    }}
+                  />
+                  {loadedProfileImage?.imagePreviewUrl && (
+                    <button
+                      style={{
+                        marginBottom: '10px',
+                      }}
+                      type="button"
+                      onClick={handleRemove}
+                    >
+                      이미지 삭제
+                    </button>
+                  )}
+                </div>
+              </>
             );
           }}
         />
+
         <CustomImgWrapper>
           <label htmlFor="profile-image-input">
             {loadedProfileImage?.imagePreviewUrl ? (
-              <Img alt="" src={loadedProfileImage?.imagePreviewUrl} />
+              <>
+                <Img alt="" src={loadedProfileImage?.imagePreviewUrl} />
+              </>
             ) : (
               <Img alt="default" src={defaultImg} />
             )}
           </label>
         </CustomImgWrapper>
-        <button type="button" onClick={handleRemove}>
-          이미지 삭제
-        </button>
       </Grid>
       <Grid item xs={12}>
         {addForm?.map((item: any, i: number) => {

@@ -32,7 +32,7 @@ const CustomImgWrapper = styled.div`
   border-radius: 16px;
   width: 140px;
   height: 140px;
-
+  background-color: lightgray;
   &:hover {
     filter: brightness(90%);
   }
@@ -42,6 +42,7 @@ const Img = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 16px;
+  object-fit: contain;
 `;
 
 const Footer = styled(Grid)`
@@ -118,16 +119,18 @@ const CenterForm = ({
               return (
                 <>
                   <span>커버 이미지 *</span>
-                  <input
-                    {...field}
-                    ref={fileMuitleInput}
-                    type="file"
-                    onChange={handleUploadFile}
-                    hidden
-                  />
-                  <button type="button" onClick={handleFileClick}>
-                    파일 업로드
-                  </button>
+                  <div>
+                    <input
+                      {...field}
+                      ref={fileMuitleInput}
+                      type="file"
+                      onChange={handleUploadFile}
+                      hidden
+                    />
+                    <button type="button" onClick={handleFileClick}>
+                      파일 업로드
+                    </button>
+                  </div>
                 </>
               );
             }}
@@ -140,8 +143,11 @@ const CenterForm = ({
               <>
                 <img
                   style={{
-                    width: '100px',
-                    height: '100px',
+                    width: '140px',
+                    height: '140px',
+                    objectFit: 'contain',
+                    background: 'lightgray',
+                    borderRadius: '8px',
                   }}
                   alt={url}
                   key={url}
@@ -154,13 +160,9 @@ const CenterForm = ({
             );
           })}
         </Grid>
-
-        {/* <button type="submit" onClick={handleSubmit}>
-          제출하기
-        </button> */}
       </Grid>
 
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <Controller
           name="centerName"
           control={control}
@@ -170,34 +172,32 @@ const CenterForm = ({
           )}
         />
       </Grid>
-      {/* 2 지역 */}
-      <Grid item xs={12}>
-        <Grid item xs={6}>
-          <label>지역*</label>
-          <Controller
-            name="location"
-            control={control}
-            defaultValue={{ value: '00', label: '서울' }}
-            render={({ field }) => (
-              <Block>
-                <CustomSelect
-                  {...field}
-                  className="react-select-container"
-                  classNamePrefix="react-select"
-                  defaultValue={{ value: '00', label: '서울' }}
-                  options={[
-                    { value: '00', label: '서울' },
-                    { value: '01', label: '인천' },
-                    { value: '02', label: '대구' },
-                    { value: '03', label: '부산' },
-                    { value: '04', label: '광주' },
-                  ]}
-                />
-                <ArrowImg src={arrow} alt="" />
-              </Block>
-            )}
-          />
-        </Grid>
+
+      <Grid item xs={6}>
+        <label>지역*</label>
+        <Controller
+          name="location"
+          control={control}
+          defaultValue={{ value: '00', label: '서울' }}
+          render={({ field }) => (
+            <Block>
+              <CustomSelect
+                {...field}
+                className="react-select-container"
+                classNamePrefix="react-select"
+                defaultValue={{ value: '00', label: '서울' }}
+                options={[
+                  { value: '00', label: '서울' },
+                  { value: '01', label: '인천' },
+                  { value: '02', label: '대구' },
+                  { value: '03', label: '부산' },
+                  { value: '04', label: '광주' },
+                ]}
+              />
+              <ArrowImg src={arrow} alt="" />
+            </Block>
+          )}
+        />
       </Grid>
 
       {/* 3 대표주소 */}
@@ -246,7 +246,6 @@ const CenterForm = ({
       </Grid>
 
       {/* 4 사업자 등록번호 */}
-      {/* <Grid item xs={12}> */}
       <Grid item xs={6}>
         <Controller
           name="bizzNumber"
@@ -256,42 +255,6 @@ const CenterForm = ({
             <CustomInput {...field} label="사업자 등록번호" placeholder="‘-’ 제외 10자리" />
           )}
         />
-      </Grid>
-
-      <Grid item xs={6}>
-        <Controller
-          name="profileImg"
-          control={control}
-          render={({ field }) => {
-            return (
-              <label>
-                사업자 이미지 등록
-                <input
-                  {...field}
-                  accept="image/*"
-                  id="profile-image-input" // label htmlFor
-                  type="file" // type="file"
-                  hidden // input을 숨기고 다른 스타일링위해
-                  onChange={e => {
-                    handleBusinessImageChange(e);
-                  }}
-                />
-              </label>
-            );
-          }}
-        />
-        <CustomImgWrapper>
-          <label htmlFor="profile-image-input">
-            {loadedBusinessImage.imagePreviewUrl ? (
-              <Img alt="" src={loadedBusinessImage.imagePreviewUrl} />
-            ) : (
-              <Img alt="default" src={defaultImg} />
-            )}
-          </label>
-        </CustomImgWrapper>
-        <button type="button" onClick={handleRemove}>
-          이미지 삭제
-        </button>
       </Grid>
 
       <Grid item xs={6}>
@@ -330,6 +293,44 @@ const CenterForm = ({
           )}
         />
       </Grid>
+      <Grid item xs={6}>
+        <Controller
+          name="profileImg"
+          control={control}
+          render={({ field }) => {
+            return (
+              <label>
+                사업자 이미지 등록
+                <input
+                  {...field}
+                  accept="image/*"
+                  id="profile-image-input" // label htmlFor
+                  type="file" // type="file"  object-fit: cover;
+                  hidden // input을 숨기고 다른 스타일링위해
+                  onChange={e => {
+                    handleBusinessImageChange(e);
+                  }}
+                />
+              </label>
+            );
+          }}
+        />
+        <CustomImgWrapper>
+          <label htmlFor="profile-image-input">
+            {loadedBusinessImage.imagePreviewUrl ? (
+              <Img alt="" src={loadedBusinessImage.imagePreviewUrl} />
+            ) : (
+              <Img alt="default" src={defaultImg} />
+            )}
+          </label>
+        </CustomImgWrapper>
+        {loadedBusinessImage.imagePreviewUrl && (
+          <button type="button" onClick={handleRemove}>
+            이미지 삭제
+          </button>
+        )}
+      </Grid>
+
       {/* </Grid> */}
 
       {/* 5 textarea */}
