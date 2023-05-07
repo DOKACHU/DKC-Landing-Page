@@ -162,14 +162,29 @@ const CenterForm = ({
         </Grid>
       </Grid>
 
+      {/* 이름 */}
       <Grid item xs={6}>
         <Controller
           name="centerName"
           control={control}
           defaultValue=""
-          render={({ field }) => (
-            <CustomInput {...field} label="병원 이름" placeholder="병원 이름을 적어주세요." />
-          )}
+          render={({ field: { onChange, ...rest } }) => {
+            const handleChange = (e: any) => {
+              // 한글 & 영어만
+              const result = e.target.value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z]/gi, '');
+              onChange(result);
+            };
+
+            return (
+              <CustomInput
+                {...rest}
+                onChange={handleChange}
+                label="병원 이름"
+                maxLength={15}
+                placeholder="병원 이름을 적어주세요."
+              />
+            );
+          }}
         />
       </Grid>
 
@@ -222,9 +237,9 @@ const CenterForm = ({
         <Modal open={openPostcode} onClose={() => setOpenPostcode(false)}>
           <Box sx={style}>
             <DaumPostcode
-              onComplete={handle.selectAddress} // 값을 선택할 경우 실행되는 이벤트
-              autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
-              defaultQuery="판교역로 235" // 팝업을 열때 기본적으로 입력되는 검색어
+              onComplete={handle.selectAddress}
+              autoClose={false}
+              defaultQuery="" //  판교역로 235
             />
           </Box>
         </Modal>
@@ -251,9 +266,23 @@ const CenterForm = ({
           name="bizzNumber"
           control={control}
           defaultValue={''}
-          render={({ field }) => (
-            <CustomInput {...field} label="사업자 등록번호" placeholder="‘-’ 제외 10자리" />
-          )}
+          render={({ field: { onChange, ...rest } }) => {
+            const handleChange = (e: any) => {
+              // 숫자만
+              const result = e.target.value.replace(/\D/g, '');
+              onChange(result);
+            };
+
+            return (
+              <CustomInput
+                {...rest}
+                onChange={handleChange}
+                label="사업자 등록번호"
+                placeholder="‘-’ 제외 10자리"
+                maxLength={10}
+              />
+            );
+          }}
         />
       </Grid>
 
@@ -288,9 +317,23 @@ const CenterForm = ({
           name="proCount"
           control={control}
           // defaultValue={0}
-          render={({ field }) => (
-            <CustomInput {...field} label="치료사 수" placeholder="직접 입력" />
-          )}
+          render={({ field: { onChange, ...rest } }) => {
+            const handleChange = (e: any) => {
+              // 숫자만
+              const result = e.target.value.replace(/\D/g, '');
+              onChange(result);
+            };
+
+            return (
+              <CustomInput
+                {...rest}
+                onChange={handleChange}
+                label="치료사 수"
+                placeholder="직접 입력"
+                maxLength={4}
+              />
+            );
+          }}
         />
       </Grid>
       <Grid item xs={6}>
@@ -355,9 +398,26 @@ const CenterForm = ({
           name="phoneNumber"
           control={control}
           defaultValue=""
-          render={({ field }) => (
-            <CustomInput {...field} label="담당자 연락처" placeholder="010-0000-0000" />
-          )}
+          render={({ field: { onChange, ...rest } }) => {
+            const handleChange = (e: any) => {
+              // 숫자만
+
+              const result = e.target.value.replace(/\D/g, '');
+
+              // const result = parseInt(e.target.value) ? parseInt(e.target.value) : '';
+              onChange(result);
+            };
+
+            return (
+              <CustomInput
+                {...rest}
+                onChange={handleChange}
+                label="담당자 연락처"
+                placeholder="010-0000-0000"
+                maxLength={14}
+              />
+            );
+          }}
         />
       </Grid>
       <Grid item xs={6}>

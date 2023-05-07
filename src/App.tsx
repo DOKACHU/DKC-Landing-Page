@@ -229,9 +229,9 @@ export default function App() {
           <button onClick={handleToggle}> {!toggle ? '개인' : '병원'}변경 </button>
         </Test>
         <TextSection toggle={toggle} />
-        <Form onSubmit={toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
+        <Form onSubmit={!toggle ? handleSubmit(onSubmit) : personalSubmit(onPersonalSubmit)}>
           <Grid container spacing={2}>
-            {toggle ? (
+            {!toggle ? (
               <CenterForm
                 {...postProps}
                 {...multipleProps}
