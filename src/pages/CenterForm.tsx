@@ -89,6 +89,7 @@ const ArrowImg = styled.img`
 `;
 
 const CenterForm = ({
+  errors,
   tagsRef,
   handleClick,
   tags,
@@ -107,14 +108,15 @@ const CenterForm = ({
   setOpenPostcode,
   address,
 }: any) => {
+  console.log({ errors });
   return (
     <>
       <Grid item xs={12}>
         <Grid item xs={2}>
           <Controller
+            // rules={{ required: true }}
             name="coverImage"
             control={control}
-            defaultValue={''}
             render={({ field }) => {
               return (
                 <>
@@ -159,12 +161,23 @@ const CenterForm = ({
               </>
             );
           })}
+          {/* {errors.coverImage && postImages.length === 0 && (
+            <span style={{ color: 'red' }} role="alert">
+              * 필수 항목입니다.
+            </span>
+          )} */}
+          {postImages.length === 0 && (
+            <span style={{ color: 'red' }} role="alert">
+              * 필수 항목입니다.
+            </span>
+          )}
         </Grid>
       </Grid>
 
       {/* 이름 */}
       <Grid item xs={6}>
         <Controller
+          rules={{ required: true }}
           name="centerName"
           control={control}
           defaultValue=""
@@ -186,11 +199,17 @@ const CenterForm = ({
             );
           }}
         />
+        {errors.centerName && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       <Grid item xs={6}>
         <label>지역*</label>
         <Controller
+          rules={{ required: true }}
           name="location"
           control={control}
           defaultValue={{ value: '00', label: '서울' }}
@@ -213,11 +232,17 @@ const CenterForm = ({
             </Block>
           )}
         />
+        {errors.location && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       {/* 3 대표주소 */}
       <Grid item xs={6}>
         <Controller
+          // rules={{ required: true }}
           name="address"
           control={control}
           defaultValue=""
@@ -243,10 +268,16 @@ const CenterForm = ({
             />
           </Box>
         </Modal>
+        {address === '' && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       <Grid item xs={6}>
         <Controller
+          rules={{ required: true }}
           name="detailAddress"
           control={control}
           defaultValue={''}
@@ -258,11 +289,17 @@ const CenterForm = ({
             />
           )}
         />
+        {errors.detailAddress && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       {/* 4 사업자 등록번호 */}
       <Grid item xs={6}>
         <Controller
+          rules={{ required: true }}
           name="bizzNumber"
           control={control}
           defaultValue={''}
@@ -284,11 +321,17 @@ const CenterForm = ({
             );
           }}
         />
+        {errors.bizzNumber && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       <Grid item xs={6}>
         <label>진료항목*</label>
         <Controller
+          rules={{ required: true }}
           name="subject"
           control={control}
           defaultValue={{ value: '00', label: '도수 치료' }}
@@ -309,17 +352,21 @@ const CenterForm = ({
             </Block>
           )}
         />
+        {errors.subject && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       {/* 치료사 수 */}
       <Grid item xs={6}>
         <Controller
+          rules={{ required: true }}
           name="proCount"
           control={control}
-          // defaultValue={0}
           render={({ field: { onChange, ...rest } }) => {
             const handleChange = (e: any) => {
-              // 숫자만
               const result = e.target.value.replace(/\D/g, '');
               onChange(result);
             };
@@ -335,9 +382,15 @@ const CenterForm = ({
             );
           }}
         />
+        {errors.proCount && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
       <Grid item xs={6}>
         <Controller
+          // rules={{ required: true }}
           name="profileImg"
           control={control}
           render={({ field }) => {
@@ -372,6 +425,11 @@ const CenterForm = ({
             이미지 삭제
           </button>
         )}
+        {loadedBusinessImage.imagePreviewUrl === '' && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       {/* </Grid> */}
@@ -379,32 +437,46 @@ const CenterForm = ({
       {/* 5 textarea */}
       <Grid item xs={12}>
         <Controller
+          rules={{ required: true }}
           name="desc"
           control={control}
           defaultValue=""
-          render={({ field }) => (
-            <CustomTextArea
-              {...field}
-              label="병원 소개(3000자 제한)"
-              placeholder="병원 소개를 적어주세요."
-            />
+          render={({ field: { value, ...rest } }) => (
+            <>
+              <CustomTextArea
+                {...rest}
+                label="병원 소개(3000자 제한)"
+                placeholder="병원 소개를 적어주세요."
+              />
+              <div
+                style={{
+                  textAlign: 'right',
+                  width: '100%',
+                }}
+              >
+                <span>{`${value.length} / 3000`}</span>
+              </div>
+            </>
           )}
         />
+        {errors.desc && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       {/* 6 담당자 연락처 */}
       <Grid item xs={6}>
         <Controller
+          rules={{ required: true }}
           name="phoneNumber"
           control={control}
           defaultValue=""
           render={({ field: { onChange, ...rest } }) => {
             const handleChange = (e: any) => {
               // 숫자만
-
               const result = e.target.value.replace(/\D/g, '');
-
-              // const result = parseInt(e.target.value) ? parseInt(e.target.value) : '';
               onChange(result);
             };
 
@@ -419,9 +491,15 @@ const CenterForm = ({
             );
           }}
         />
+        {errors.phoneNumber && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
       <Grid item xs={6}>
         <Controller
+          rules={{ required: true }}
           name="email"
           control={control}
           defaultValue=""
@@ -429,11 +507,17 @@ const CenterForm = ({
             <CustomInput {...field} label="정보 수신 이메일" placeholder="ex) user@gmail.com" />
           )}
         />
+        {errors.email && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       {/*TODO: auto complete */}
       <Grid item xs={12}>
         <Controller
+          rules={{ required: true }}
           name="tags"
           control={control}
           defaultValue=""
@@ -449,6 +533,11 @@ const CenterForm = ({
             />
           )}
         />
+        {errors.tags && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       <Grid
@@ -462,7 +551,7 @@ const CenterForm = ({
           name="policy"
           control={control}
           defaultValue=""
-          render={({ field }) => <CustomTextArea {...field} label="이용약관" />}
+          render={({ field }) => <CustomTextArea {...field} label="이용약관" readOnly />}
         />
       </Grid>
 

@@ -81,6 +81,7 @@ export default function AddForm({
   onLicenseChange,
   onSchoolChange,
   onChannelChange,
+  errors,
 }: any) {
   const textMap: any = {
     career: career,
@@ -98,7 +99,9 @@ export default function AddForm({
 
   return (
     <Container>
-      <label>{label}</label>
+      <label>
+        {type !== 'channel' && '*'} {label}
+      </label>
       <CustomDivdier />
 
       {/*  */}
@@ -111,123 +114,130 @@ export default function AddForm({
         const isChannel = ['license', 'channel'].includes(type);
 
         return (
-          <AddSection key={i}>
-            {isChannel ? null : (
-              <>
-                <Row>
+          <>
+            <AddSection key={i}>
+              {isChannel ? null : (
+                <>
+                  <Row>
+                    <YearInput
+                      placeholder="YYYY"
+                      value={type === 'career' ? career[i].startYear : school[i].startYear}
+                      type="text"
+                      maxLength={4}
+                      name="startYear"
+                      onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
+                    />
+                    <span>.</span>
+                    <MonthInput
+                      value={type === 'career' ? career[i].startMonth : school[i].startMonth}
+                      placeholder="MM"
+                      type="text"
+                      maxLength={2}
+                      name="startMonth"
+                      onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
+                    />
+                  </Row>
+                </>
+              )}
+
+              {isChannel ? null : (
+                <>
+                  <Row>
+                    <YearInput
+                      value={type === 'career' ? career[i].endYear : school[i].endYear}
+                      placeholder="YYYY"
+                      name="endYear"
+                      type="text"
+                      maxLength={4}
+                      onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
+                    />
+                    <span>.</span>
+                    <MonthInput
+                      value={type === 'career' ? career[i].endMonth : school[i].endMonth}
+                      placeholder="MM"
+                      type="text"
+                      name="endMonth"
+                      maxLength={2}
+                      onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
+                    />
+                  </Row>
+                </>
+              )}
+
+              {isChannel ? null : (
+                <>
+                  <Input
+                    placeholder={placeholderMap[type]}
+                    maxLength={30}
+                    name="content"
+                    onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
+                  />
+                </>
+              )}
+
+              {type === 'license' && (
+                <div>
+                  <Input
+                    // value={license[i].licenseName}
+                    placeholder={'자격증 이름'}
+                    name="licenseName"
+                    maxLength={10}
+                    onChange={e => onLicenseChange(e, i)}
+                  />
+                  <Input
+                    // value={license[i].licenseNumber}
+                    placeholder={'자격증 번호'}
+                    name="licenseNumber"
+                    maxLength={10}
+                    onChange={e => onLicenseChange(e, i)}
+                  />
                   <YearInput
                     placeholder="YYYY"
-                    value={type === 'career' ? career[i].startYear : school[i].startYear}
+                    value={license[i].registerYear}
+                    name="registerYear"
                     type="text"
                     maxLength={4}
-                    name="startYear"
-                    onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
+                    onChange={e => onLicenseChange(e, i)}
                   />
                   <span>.</span>
                   <MonthInput
-                    value={type === 'career' ? career[i].startMonth : school[i].startMonth}
+                    value={license[i].registerMonth}
                     placeholder="MM"
                     type="text"
+                    name="registerMonth"
                     maxLength={2}
-                    name="startMonth"
-                    onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
+                    onChange={e => onLicenseChange(e, i)}
                   />
-                </Row>
-              </>
-            )}
-
-            {isChannel ? null : (
-              <>
-                <Row>
-                  <YearInput
-                    value={type === 'career' ? career[i].endYear : school[i].endYear}
-                    placeholder="YYYY"
-                    name="endYear"
-                    type="text"
-                    maxLength={4}
-                    onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
-                  />
-                  <span>.</span>
-                  <MonthInput
-                    value={type === 'career' ? career[i].endMonth : school[i].endMonth}
-                    placeholder="MM"
-                    type="text"
-                    name="endMonth"
-                    maxLength={2}
-                    onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
-                  />
-                </Row>
-              </>
-            )}
-
-            {isChannel ? null : (
-              <>
-                <Input
-                  placeholder={placeholderMap[type]}
-                  maxLength={30}
-                  name="content"
-                  onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
-                />
-              </>
-            )}
-
-            {type === 'license' && (
-              <div>
-                <Input
-                  // value={license[i].licenseName}
-                  placeholder={'자격증 이름'}
-                  name="licenseName"
-                  maxLength={10}
-                  onChange={e => onLicenseChange(e, i)}
-                />
-                <Input
-                  // value={license[i].licenseNumber}
-                  placeholder={'자격증 번호'}
-                  name="licenseNumber"
-                  maxLength={10}
-                  onChange={e => onLicenseChange(e, i)}
-                />
-                <YearInput
-                  placeholder="YYYY"
-                  value={license[i].registerYear}
-                  name="registerYear"
-                  type="text"
-                  maxLength={4}
-                  onChange={e => onLicenseChange(e, i)}
-                />
-                <span>.</span>
-                <MonthInput
-                  value={license[i].registerMonth}
-                  placeholder="MM"
-                  type="text"
-                  name="registerMonth"
-                  maxLength={2}
-                  onChange={e => onLicenseChange(e, i)}
-                />
-                {/* <MonthInput
+                  {/* <MonthInput
                   placeholder="DD"
                   type="text"
                   name="registerDay"
                   maxLength={2}
                   onChange={e => onLicenseChange(e, i)}
                 /> */}
-              </div>
-            )}
+                </div>
+              )}
 
-            {type === 'channel' && (
-              <>
-                <Input
-                  style={{
-                    width: '300px',
-                  }}
-                  placeholder={placeholderMap[type]}
-                  maxLength={30}
-                  name="content"
-                  onChange={e => onChannelChange(e, i)}
-                />
-              </>
+              {type === 'channel' && (
+                <>
+                  <Input
+                    style={{
+                      width: '300px',
+                    }}
+                    placeholder={placeholderMap[type]}
+                    maxLength={30}
+                    name="content"
+                    onChange={e => onChannelChange(e, i)}
+                  />
+                </>
+              )}
+            </AddSection>
+            {errors.info && type !== 'channel' && (
+              <span style={{ color: 'red' }} role="alert">
+                * 필수 항목입니다.
+              </span>
             )}
-          </AddSection>
+          </>
         );
       })}
     </Container>

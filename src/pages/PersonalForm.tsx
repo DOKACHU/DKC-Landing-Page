@@ -78,6 +78,7 @@ const ArrowImg = styled.img`
 `;
 
 const PersonalForm = ({
+  errors,
   channel,
   setChannel,
   license,
@@ -253,12 +254,12 @@ const PersonalForm = ({
 
       <Grid item xs={6}>
         <Controller
+          rules={{ required: true }}
           name="name"
           control={control}
           defaultValue=""
           render={({ field: { onChange, ...rest } }) => {
             const handleChange = (e: any) => {
-              // 한글 & 영어만
               const result = e.target.value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z]/gi, '');
               onChange(result);
             };
@@ -274,6 +275,11 @@ const PersonalForm = ({
             );
           }}
         />
+        {errors.name && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
       <Grid item xs={6}>
         <label>성별*</label>
@@ -351,18 +357,34 @@ const PersonalForm = ({
       {/* 5 textarea */}
       <Grid item xs={12}>
         <Controller
+          rules={{ required: true }}
           name="info"
           control={control}
           defaultValue=""
-          render={({ field }) => (
-            <CustomTextArea
-              {...field}
-              label="간단 소개글 (3000자 이내)"
-              placeholder="간단한 본인 소개를 작성 해주세요."
-              maxLength={3000}
-            />
+          render={({ field: { value, ...rest } }) => (
+            <>
+              <CustomTextArea
+                label="간단 소개글 (3000자 이내)"
+                placeholder="간단한 본인 소개를 작성 해주세요."
+                maxLength={3000}
+                {...rest}
+              />
+              <div
+                style={{
+                  textAlign: 'right',
+                  width: '100%',
+                }}
+              >
+                <span>{`${value.length} / 3000`}</span>
+              </div>
+            </>
           )}
         />
+        {errors.info && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       {/* Add Form */}
@@ -413,25 +435,42 @@ const PersonalForm = ({
             )}
           </label>
         </CustomImgWrapper>
+        {loadedProfileImage.imagePreviewUrl === '' && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
       <Grid item xs={12}>
-        {addForm?.map((item: any, i: number) => {
-          return (
-            <AddForm
-              key={`${item}-${i}`}
-              {...item}
-              onClick={handleAddClick}
-              career={career}
-              school={school}
-              license={license}
-              channel={channel}
-              onChange={handleChange}
-              onLicenseChange={handleLicenseChange}
-              onChannelChange={handleChannelChange}
-              onSchoolChange={handleSchoolChange}
-            />
-          );
-        })}
+        <Controller
+          name="addform"
+          rules={{ required: true }}
+          control={control}
+          render={() => {
+            return (
+              <>
+                {addForm?.map((item: any, i: number) => {
+                  return (
+                    <AddForm
+                      errors={errors}
+                      key={`${item}-${i}`}
+                      {...item}
+                      onClick={handleAddClick}
+                      career={career}
+                      school={school}
+                      license={license}
+                      channel={channel}
+                      onChange={handleChange}
+                      onLicenseChange={handleLicenseChange}
+                      onChannelChange={handleChannelChange}
+                      onSchoolChange={handleSchoolChange}
+                    />
+                  );
+                })}
+              </>
+            );
+          }}
+        />
       </Grid>
 
       <Footer xs={12}>

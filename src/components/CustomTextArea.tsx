@@ -31,10 +31,11 @@ const TextArea = styled.textarea`
 
 interface CustomTextAreaProps {
   label?: string;
-  value: string;
+  value?: string;
   placeholder?: string;
   onChange: (...event: any[]) => void;
   maxLength?: number;
+  readOnly?: boolean;
 }
 
 export default function CustomTextArea({
@@ -42,12 +43,20 @@ export default function CustomTextArea({
   label,
   placeholder,
   maxLength,
+  readOnly,
   ...props
 }: CustomTextAreaProps) {
   return (
     <Wrapper>
       <Span>{label}*</Span>
-      <TextArea placeholder={placeholder} rows={8} value={value} maxLength={maxLength} {...props} />
+      <TextArea
+        readOnly={readOnly}
+        placeholder={placeholder}
+        rows={8}
+        value={value}
+        maxLength={maxLength}
+        {...props}
+      />
     </Wrapper>
   );
 }

@@ -43,6 +43,8 @@ export const useMultipleUpload = () => {
     postImages,
     handleUploadFile,
     handleDeleteImage,
+    setPostImages,
+    setRawFiles,
   };
 };
 

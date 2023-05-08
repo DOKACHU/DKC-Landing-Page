@@ -61,8 +61,17 @@ export default function App() {
   const tagProps = useRegisterCenter();
   const postProps = usePostCode();
 
-  const { handleSubmit, control } = useForm<IFormInput>();
-  const { handleSubmit: personalSubmit, control: personalCtrl } = useForm<PersonalFormInput>();
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<IFormInput>();
+  const {
+    handleSubmit: personalSubmit,
+    control: personalCtrl,
+    formState: { errors: perros },
+  } = useForm<PersonalFormInput>();
   const {
     loadedProfileImage,
     handleProfileImageChange,
@@ -111,7 +120,7 @@ export default function App() {
   ]);
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
-    const { postImages, rawFiles } = multipleProps;
+    const { postImages, rawFiles, setRawFiles, setPostImages } = multipleProps;
     const { tags } = tagProps;
     console.log({ data, postImages, loadedBusinessImage, tags });
     const {
@@ -156,6 +165,9 @@ export default function App() {
       },
       onSuccess: res => {
         console.log({ res });
+        setRawFiles([]);
+        setPostImages([]);
+        reset();
         alert('센터 입점 양식 등록 완료 ');
       },
     });
@@ -163,7 +175,7 @@ export default function App() {
 
   const onPersonalSubmit: SubmitHandler<PersonalFormInput> = async data => {
     // alert(JSON.stringify(data));
-    const { rawFiles } = multipleProps;
+    const { rawFiles, setRawFiles, setPostImages } = multipleProps;
     const { name, location, major, info, sex } = data;
     console.log({ data, rawFiles, loadedProfileImage, career, school, license, channel });
 
@@ -213,6 +225,9 @@ export default function App() {
       },
       onSuccess: res => {
         console.log({ res });
+        setRawFiles([]);
+        setPostImages([]);
+        reset();
         alert('프로 입점 양식 등록 완료 ');
       },
     });
@@ -233,6 +248,7 @@ export default function App() {
           <Grid container spacing={2}>
             {!toggle ? (
               <CenterForm
+                errors={errors}
                 {...postProps}
                 {...multipleProps}
                 {...tagProps}
@@ -243,6 +259,7 @@ export default function App() {
               />
             ) : (
               <PersonalForm
+                errors={perros}
                 {...multipleProps}
                 channel={channel}
                 setChannel={setChannel}
