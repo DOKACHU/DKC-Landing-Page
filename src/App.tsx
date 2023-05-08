@@ -70,6 +70,7 @@ export default function App() {
   const {
     handleSubmit: personalSubmit,
     control: personalCtrl,
+    reset: preset,
     formState: { errors: perros },
   } = useForm<PersonalFormInput>();
   const {
@@ -227,7 +228,7 @@ export default function App() {
         console.log({ res });
         setRawFiles([]);
         setPostImages([]);
-        reset();
+        preset();
         alert('프로 입점 양식 등록 완료 ');
       },
     });

@@ -81,8 +81,8 @@ export default function AddForm({
   onLicenseChange,
   onSchoolChange,
   onChannelChange,
-  errors,
-}: any) {
+}: // errors,
+any) {
   const textMap: any = {
     career: career,
     school: school,
@@ -232,11 +232,11 @@ export default function AddForm({
                 </>
               )}
             </AddSection>
-            {errors.info && type !== 'channel' && (
+            {/* {errors.addform && type !== 'channel' && (
               <span style={{ color: 'red' }} role="alert">
                 * 필수 항목입니다.
               </span>
-            )}
+            )} */}
           </>
         );
       })}

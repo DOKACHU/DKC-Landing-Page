@@ -250,6 +250,11 @@ const PersonalForm = ({
             </>
           );
         })}
+        {postImages.length === 0 && (
+          <span style={{ color: 'red' }} role="alert">
+            * 필수 항목입니다.
+          </span>
+        )}
       </Grid>
 
       <Grid item xs={6}>
