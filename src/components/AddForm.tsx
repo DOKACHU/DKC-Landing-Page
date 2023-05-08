@@ -56,6 +56,7 @@ const MonthInput = styled.input`
 
 const Input = styled.input`
   border: none;
+  /* width: 300px; */
   /* width: 30px; */
   &:focus {
     outline: none;
@@ -81,8 +82,6 @@ export default function AddForm({
   onSchoolChange,
   onChannelChange,
 }: any) {
-  //   console.log({ children });
-
   const textMap: any = {
     career: career,
     school: school,
@@ -94,7 +93,7 @@ export default function AddForm({
     career: '병원명',
     school: '학력',
     license: '자격증',
-    channel: '채널',
+    channel: 'ex) https://www.youtube.com/watch?v=test',
   };
 
   return (
@@ -118,6 +117,7 @@ export default function AddForm({
                 <Row>
                   <YearInput
                     placeholder="YYYY"
+                    value={type === 'career' ? career[i].startYear : school[i].startYear}
                     type="text"
                     maxLength={4}
                     name="startYear"
@@ -125,6 +125,7 @@ export default function AddForm({
                   />
                   <span>.</span>
                   <MonthInput
+                    value={type === 'career' ? career[i].startMonth : school[i].startMonth}
                     placeholder="MM"
                     type="text"
                     maxLength={2}
@@ -139,6 +140,7 @@ export default function AddForm({
               <>
                 <Row>
                   <YearInput
+                    value={type === 'career' ? career[i].endYear : school[i].endYear}
                     placeholder="YYYY"
                     name="endYear"
                     type="text"
@@ -147,6 +149,7 @@ export default function AddForm({
                   />
                   <span>.</span>
                   <MonthInput
+                    value={type === 'career' ? career[i].endMonth : school[i].endMonth}
                     placeholder="MM"
                     type="text"
                     name="endMonth"
@@ -161,7 +164,7 @@ export default function AddForm({
               <>
                 <Input
                   placeholder={placeholderMap[type]}
-                  maxLength={10}
+                  maxLength={30}
                   name="content"
                   onChange={e => (type === 'career' ? onChange(e, i) : onSchoolChange(e, i))}
                 />
@@ -171,12 +174,14 @@ export default function AddForm({
             {type === 'license' && (
               <div>
                 <Input
+                  // value={license[i].licenseName}
                   placeholder={'자격증 이름'}
                   name="licenseName"
                   maxLength={10}
                   onChange={e => onLicenseChange(e, i)}
                 />
                 <Input
+                  // value={license[i].licenseNumber}
                   placeholder={'자격증 번호'}
                   name="licenseNumber"
                   maxLength={10}
@@ -184,6 +189,7 @@ export default function AddForm({
                 />
                 <YearInput
                   placeholder="YYYY"
+                  value={license[i].registerYear}
                   name="registerYear"
                   type="text"
                   maxLength={4}
@@ -191,6 +197,7 @@ export default function AddForm({
                 />
                 <span>.</span>
                 <MonthInput
+                  value={license[i].registerMonth}
                   placeholder="MM"
                   type="text"
                   name="registerMonth"
@@ -210,8 +217,11 @@ export default function AddForm({
             {type === 'channel' && (
               <>
                 <Input
+                  style={{
+                    width: '300px',
+                  }}
                   placeholder={placeholderMap[type]}
-                  maxLength={10}
+                  maxLength={30}
                   name="content"
                   onChange={e => onChannelChange(e, i)}
                 />

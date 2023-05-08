@@ -96,6 +96,15 @@ const PersonalForm = ({
   loadedProfileImage,
   handleProfileImageChange,
 }: any) => {
+  const isNumber = [
+    'startYear',
+    'startMonth',
+    'endYear',
+    'endMonth',
+    'registerYear',
+    'registerMonth',
+  ];
+
   const handleAddClick = (e: any) => {
     e.preventDefault();
     const { name } = e.target;
@@ -159,24 +168,26 @@ const PersonalForm = ({
 
   const handleChange = (e: any, index: number) => {
     const { value, name } = e.target;
+    const result = isNumber ? value.replace(/\D/g, '') : value;
     const newList = career;
-    career[index][name] = value;
-    setCareer(newList);
-    console.log({ career });
-  };
-
-  const handleLicenseChange = (e: any, index: number) => {
-    const { value, name } = e.target;
-    const newList = license;
-    license[index][name] = value;
-    setLicense(newList);
+    career[index][name] = result;
+    setCareer([...newList]);
   };
 
   const handleSchoolChange = (e: any, index: number) => {
     const { value, name } = e.target;
+    const result = isNumber ? value.replace(/\D/g, '') : value;
     const newList = school;
-    school[index][name] = value;
-    setSchool(newList);
+    school[index][name] = result;
+    setSchool([...newList]);
+  };
+
+  const handleLicenseChange = (e: any, index: number) => {
+    const { value, name } = e.target;
+    const result = isNumber ? value.replace(/\D/g, '') : value;
+    const newList = license;
+    license[index][name] = result;
+    setLicense([...newList]);
   };
 
   const handleChannelChange = (e: any, index: number) => {
@@ -245,14 +256,23 @@ const PersonalForm = ({
           name="name"
           control={control}
           defaultValue=""
-          render={({ field }) => (
-            <CustomInput
-              {...field}
-              label="이름"
-              placeholder="이름을 입력해주세요."
-              maxLength={10}
-            />
-          )}
+          render={({ field: { onChange, ...rest } }) => {
+            const handleChange = (e: any) => {
+              // 한글 & 영어만
+              const result = e.target.value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z]/gi, '');
+              onChange(result);
+            };
+
+            return (
+              <CustomInput
+                {...rest}
+                onChange={handleChange}
+                label="이름"
+                placeholder="이름을 입력해주세요."
+                maxLength={15}
+              />
+            );
+          }}
         />
       </Grid>
       <Grid item xs={6}>
